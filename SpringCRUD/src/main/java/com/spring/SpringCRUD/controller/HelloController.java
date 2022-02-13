@@ -3,6 +3,7 @@ package com.spring.SpringCRUD.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /*
@@ -10,10 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 * */
 @Controller
 public class HelloController {
+
+    //thymeleaf 템플릿 엔진 동작 확인
     @GetMapping("hello")
     public String hello(Model model){
         model.addAttribute("data","Hello Spring");
 
         return "hello";
+    }
+
+    //MVC와 템플릿 엔진
+    //@RequestParm 을 이용해 data를 받아 model 에 담아 view로 이동
+    @GetMapping("hello-mvc")
+    public String helloMVC(@RequestParam("name") String name,Model model){
+        model.addAttribute("name",name);
+        return "hello-templete";
     }
 }
