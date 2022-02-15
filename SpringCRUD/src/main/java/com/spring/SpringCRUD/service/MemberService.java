@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 //회원 서비스
-@Service // spring 컨테이너에 등록
+//@Service // spring 컨테이너에 등록
 public class MemberService {
 
         /* 기존에는 회원 서비스가 메모리 회원 리포지토리를 직접 생성하게 함
@@ -18,7 +18,7 @@ public class MemberService {
 
         //회원 repository 필요
         private final MemberRepository memberRepository;
-        @Autowired
+        //@Autowired
         public MemberService(MemberRepository memberRepository) { //DI(dependency injection, 의존성 주입)
                 this.memberRepository = memberRepository;
         }
