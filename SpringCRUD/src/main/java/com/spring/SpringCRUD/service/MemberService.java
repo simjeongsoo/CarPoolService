@@ -3,11 +3,14 @@ package com.spring.SpringCRUD.service;
 import com.spring.SpringCRUD.domain.Member;
 import com.spring.SpringCRUD.repository.MemberRepository;
 import com.spring.SpringCRUD.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 //회원 서비스
+@Service // spring 컨테이너에 등록
 public class MemberService {
 
         /* 기존에는 회원 서비스가 메모리 회원 리포지토리를 직접 생성하게 함
@@ -15,6 +18,7 @@ public class MemberService {
 
         //회원 repository 필요
         private final MemberRepository memberRepository;
+        @Autowired
         public MemberService(MemberRepository memberRepository) { //DI(dependency injection, 의존성 주입)
                 this.memberRepository = memberRepository;
         }
