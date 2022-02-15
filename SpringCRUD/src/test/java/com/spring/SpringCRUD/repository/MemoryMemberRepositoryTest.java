@@ -13,22 +13,23 @@ public class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
-    @AfterEach
+    @AfterEach // 각 메서드가 끝나면 호출
     public void afterEach(){
+        //각테스트가 끝나면 repository clear
         repository.clearStore();
     }
 
     @Test
     public void save(){
         Member member = new Member();
-        member.setName("saveTest");
+        member.setName("saveTest"); // 테스트용 회원 정보 ㅓ장
 
         repository.save(member);
 
-        Member result =  repository.findById(member.getId()).get();
-        //System.out.println("result = " + (result == member));
-        //Assertions.assertEquals(member, result);
-        assertThat(member).isEqualTo(result);
+        Member result =  repository.findById(member.getId()).get(); // db에서 꺼낸 회원 정보
+        //System.out.println("result = " + (result == member)); // 단순한 출력 방식
+        //Assertions.assertEquals(member, result); // (junit)
+        assertThat(member).isEqualTo(result); // (assertj) 같은지 비교
     }
 
     @Test
