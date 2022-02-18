@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<!-- 상단 메뉴바 설정 파일  -->
   <head th:fragment="head(title)">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -38,6 +38,17 @@
                 </li> -->
 
               </ul>
+              
+          <form class="form-inline my-2 my-lg-0">
+            <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그인</button>
+          </form>
+
+          <form class="form-inline my-2 my-lg-0">
+            <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
+          </form>
+
             </div>
           </nav>
   </body>
