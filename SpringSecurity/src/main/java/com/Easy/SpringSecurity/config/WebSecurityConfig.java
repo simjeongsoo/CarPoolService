@@ -20,9 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -34,12 +31,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/account/login")
+                .defaultSuccessUrl("/index")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
     }
-
+//.defaultSuccessUrl("/index") 로그인 성공후 연결 url
 
 
 

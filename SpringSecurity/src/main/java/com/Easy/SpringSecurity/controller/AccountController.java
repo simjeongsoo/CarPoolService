@@ -29,7 +29,7 @@ public class AccountController {
     public String register(User user){
         //회원가입시 패스워드 암호화 , 사용자 권한 추가 -> service 클래스 에서 처리
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }
