@@ -15,8 +15,35 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <!-- jquery-3.5.0 / modal control -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+
 </head>
 <body id="page-top">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Welcome Easy CarPool</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                어서오세요
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">괜찮아요. 웹으로 볼게요</button>
+                <button type="button" class="btn btn-primary">앱으로 편하게 보기</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
@@ -39,7 +66,6 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded"
                        th:href="@{/account/register}" sec:authorize="isAnonymous()" role="button">회원가입</a>
-
                 </li>
             </ul>
         </div>
@@ -87,6 +113,15 @@
             <hr>
 
             </p>
+
+
+<!--            &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">-->
+<!--                Launch demo modal-->
+<!--            </button>-->
+
+
+
 
             <!--                    &lt;!&ndash; Portfolio Item 1&ndash;&gt;-->
             <!--                    <div class="col-md-6 col-lg-4 mb-5">-->
@@ -255,11 +290,11 @@
         <div class="row">
             <!-- Footer Location-->
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Location</h4>
+                <h4 class="text-uppercase mb-4">dedicated person</h4>
                 <p class="lead mb-0">
-                    2215 John Daniel Drive
+                    KDH
                     <br />
-                    Clark, MO 65243
+                    SJS
                 </p>
             </div>
             <!-- Footer Social Icons-->
@@ -272,11 +307,11 @@
             </div>
             <!-- Footer About Text-->
             <div class="col-lg-4">
-                <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                <h4 class="text-uppercase mb-4">About Easy</h4>
                 <p class="lead mb-0">
-                    Freelance is a free to use, MIT licensed Bootstrap theme created by
-                    <a href="http://startbootstrap.com">Start Bootstrap</a>
-                    .
+                    We've been together for 3 years since college, and we won a graduation project together.<br />
+                    <a href="http://startbootstrap.com">KPU</a>
+
                 </p>
             </div>
         </div>
@@ -284,7 +319,7 @@
 </footer>
 <!-- Copyright Section-->
 <div class="copyright py-4 text-center text-white">
-    <div class="container"><small>Copyright &copy; Your Website 2021</small></div>
+    <div class="container"><small>Copyright &copy; Easy CarPool Service</small></div>
 </div>
 <!-- Portfolio Modals-->
 <!-- Portfolio Modal 1-->
