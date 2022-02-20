@@ -2,10 +2,7 @@ package com.Easy.SpringSecurity.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,4 +17,9 @@ public class Board {
     @Size(min=2, max=30,message = "제목은 2자이상 30자 이하입니다.")
     private String title;
     private String content;
+
+    //boar 클래스에서 user 클래스 사용
+    @ManyToOne
+    @JoinColumn(name = "user_id") // 어떤 컬럼을 join 할지 지정
+    private User user;
 }
