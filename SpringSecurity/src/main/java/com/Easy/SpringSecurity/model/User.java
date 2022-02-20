@@ -30,6 +30,8 @@ public class User {
     private List<Role> roles = new ArrayList<>(); // 사용자 권한 양방향 매핑
 
     // 양방향 매핑, board 클래스 ManyToOne에서 사용한 변수명 "user"
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY) //쓸데없는 쿼리 안불러오는 LAZY
+//    @JsonIgnore
     private List<Board> boards = new ArrayList<>();
 }

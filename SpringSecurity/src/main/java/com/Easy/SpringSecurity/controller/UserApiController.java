@@ -3,6 +3,7 @@ package com.Easy.SpringSecurity.controller;
 import com.Easy.SpringSecurity.model.Board;
 import com.Easy.SpringSecurity.model.User;
 import com.Easy.SpringSecurity.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
@@ -12,6 +13,7 @@ import java.util.List;
 //JPA이용해서 DB의 데이터 조작할 수 있는 컨트롤러 생성
     @RestController
     @RequestMapping("/api")
+    @Slf4j
     class UserApiController {
 
     @Autowired
@@ -19,7 +21,11 @@ import java.util.List;
 
     @GetMapping("/users") //게시글검색
     List<User> all() {
-       return repository.findAll();
+        List<User> users = repository.findAll();
+        log.debug("getBoards().size 호출전");
+        log.debug("getBoards().size : {}", users.get(0).getBoards().size());
+        log.debug("getBoards().size 호출후");
+       return users;
     }
 
         @PostMapping("/users")
@@ -31,7 +37,6 @@ import java.util.List;
 
         @GetMapping("/users/{id}")
         User one (@PathVariable Long id){
-
             return repository.findById(id).orElse(null);
         }
 
