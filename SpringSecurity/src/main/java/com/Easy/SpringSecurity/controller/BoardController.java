@@ -2,12 +2,15 @@ package com.Easy.SpringSecurity.controller;
 
 import com.Easy.SpringSecurity.model.Board;
 import com.Easy.SpringSecurity.repository.BoardRepository;
+import com.Easy.SpringSecurity.service.BoardService;
 import com.Easy.SpringSecurity.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardValidator boardValidator;
@@ -56,12 +62,17 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String greetingSubmit(@Valid Board board, BindingResult bindingResult) {
+    public String postFrom(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
         boardValidator.validate(board,bindingResult);
         if (bindingResult.hasErrors()){
             return "board/form";
         }
-        boardRepository.save(board);
+        //Authentication a = SecurityContextHolder.getContext().getAuthentication(); // 인증정보를 이렇게 받아와도 됌
+        String username = authentication.getName();
+        //board.setUser(user); // user의 키값을 참조하여  user_id 값이 담김
+
+        boardService.save(username,board); // boardService 에서 username까지 저장
+//        boardRepository.save(board);
         return "redirect:/board/list";
     }
 
