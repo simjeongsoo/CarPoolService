@@ -1,5 +1,6 @@
 package com.Easy.SpringSecurity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,5 +22,6 @@ public class Board {
     //boar 클래스에서 user 클래스 사용
     @ManyToOne
     @JoinColumn(name = "user_id") // 어떤 컬럼을 join 할지 지정
+    @JsonIgnore
     private User user;
 }

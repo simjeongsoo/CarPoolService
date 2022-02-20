@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //http 접근 보안설정
         http
                 .authorizeRequests()
-                .antMatchers("/","/account/register","/css/**").permitAll()
+                .antMatchers("/","/account/register","/css/**","/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
