@@ -23,7 +23,7 @@ public class UserService {
         user.setPassword(encodedPassword);
         user.setEnable(true);
         Role role = new Role();
-        role.setId(1l);
+        role.setId(2l);// 권한부여
         user.getRoles().add(role);
         return userRepository.save(user);
     }
