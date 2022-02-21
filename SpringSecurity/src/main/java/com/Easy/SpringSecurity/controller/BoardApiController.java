@@ -3,6 +3,7 @@ package com.Easy.SpringSecurity.controller;
 import com.Easy.SpringSecurity.model.Board;
 import com.Easy.SpringSecurity.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -61,6 +62,7 @@ import java.util.List;
                     });
         }
 
+        @Secured("ROLE_ADMIN")//MethodSecurityConfig에 정의되어있는 Secured, admin만 호출할수있음
         @DeleteMapping("/boards/{id}")
         void deleteBoard (@PathVariable Long id){
             repository.deleteById(id);
