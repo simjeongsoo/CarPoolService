@@ -14,7 +14,7 @@
 ![mobile](./images/mobile.png)
 
 ### WebBrowser
-![WebBrewser](./images/WebBrewser.png)
+![WebBrowser](./images/WebBrowser.png)
 
 
 
