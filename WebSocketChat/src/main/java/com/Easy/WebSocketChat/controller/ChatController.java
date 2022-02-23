@@ -5,15 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-// 라우터 잡음
 @Controller
 @Log4j2
 public class ChatController {
 
-    @GetMapping("/chat")
-    public String chatGET(){
-        log.info("@ChatController, chat CET()");
+    @GetMapping("/")
+    public String chat(){
+        log.info("@ChatController, chat in");
 
         return "chat";
+    }
+    @GetMapping("/chatfront")
+    public String chatFront(){
+
+        return "chatfront";
     }
 }
