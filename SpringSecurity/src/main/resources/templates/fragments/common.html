@@ -30,8 +30,8 @@
                   <a class="nav-link" href="#" th:href="@{/board/list}">게시판<span class="sr-only" th:if="${menu} == 'board'">(current)</span></a>
                 </li>
 
-                <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
-                  <a class="nav-link" href="#">채팅<span class="sr-only" th:if="${menu} == 'chat'">(current)</span></a>
+                <li class="nav-item" th:classappend="${menu} == 'chat'? 'active'">
+                  <a class="nav-link" href="#" th:href="@{/chat}">채팅<span class="sr-only" th:if="${menu} == 'chat'">(current)</span></a>
                 </li>
                 <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
                   <a class="nav-link" href="#">내정보<span class="sr-only" th:if="${menu} == 'info'">(current)</span></a>
