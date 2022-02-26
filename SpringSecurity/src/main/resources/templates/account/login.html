@@ -16,7 +16,8 @@
 
   <body class="text-center" >
       <form class="form-signin" th:action="@{/account/login}" method="post">
-          <a th:href="@{/}"><img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></a> 
+                                                  <!-- login logo img  -->
+          <a th:href="@{/}"><img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/4727/4727194.png" alt="" width="150" height="150"></a>
           <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
           <div th:if="${param.error}" class="alert alert-danger" role="alert">
               Invalid username and password.

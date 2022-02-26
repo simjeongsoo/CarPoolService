@@ -23,11 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.headers().frameOptions().sameOrigin();
         //http 접근 보안설정
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/account/register","/css/**","/api/**","/assets/**").permitAll()
+                .antMatchers("/","/account/register","/css/**","/api/**","/assets/**","/chat/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

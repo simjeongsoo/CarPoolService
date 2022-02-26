@@ -1,4 +1,4 @@
-package com.Easy.WebSocketChat.dto;
+package com.Easy.WebSocketChat.controller;
 
 import lombok.Getter;
 import lombok.Setter;
