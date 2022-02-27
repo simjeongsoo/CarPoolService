@@ -3,14 +3,30 @@ package com.Easy.SpringSecurity.config;
 import com.Easy.SpringSecurity.handler.ChatHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
-@EnableWebSocket
+@EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/sub");
+        config.setApplicationDestinationPrefixes("/pub");
+    }
+
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws-stomp").setAllowedOriginPatterns("*").withSockJS();
+    }
+
+
+/*
     private final ChatHandler chatHandler;
 
     @Override
@@ -23,4 +39,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }//.withSockJS() 추가
     //setAllowedOrigins("*")에서 *라는 와일드 카드를 사용하면
     //보안상의 문제로 전체를 허용하는 것보다 직접 하나씩 지정해주어야 함
+
+
+ */
 }
