@@ -10,6 +10,12 @@ public class AdminController {
 
     @GetMapping("/home")
     public String admin(){
-        return "admin/admin";
+        return "admin/home";
     }
+
+    @GetMapping("/chat")
+    public String adminChat(){
+        return "admin/chat";
+    }
+
 }

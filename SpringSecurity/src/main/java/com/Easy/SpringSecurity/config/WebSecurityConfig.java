@@ -22,13 +22,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.headers().frameOptions().sameOrigin();
         //http 접근 보안설정
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/account/register","/css/**","/api/**","/assets/**","/chat/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
