@@ -20,6 +20,7 @@ public class AccountController {
         return "account/login";
     }
 
+    //--오류 예상--//
     @GetMapping("/register")
     public String register(){
         return "account/register";
