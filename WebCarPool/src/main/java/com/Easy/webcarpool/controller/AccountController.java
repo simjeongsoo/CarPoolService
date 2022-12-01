@@ -20,10 +20,20 @@ public class AccountController {
         return "account/login";
     }
 
-    //--오류 예상--//
+    /**
+     *  회원가입 선택 컨트롤러
+     * */
     @GetMapping("/register")
     public String register(){
         return "account/register";
+    }
+
+    /**
+     * email 회원가입 컨트롤러
+     * */
+    @GetMapping("/email_form")
+    public String email() {
+        return "/account/email_form";
     }
 
     @PostMapping("/register")
