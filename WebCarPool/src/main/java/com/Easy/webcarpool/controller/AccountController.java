@@ -15,6 +15,9 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 로그인 컨트롤러
+     * */
     @GetMapping("/login")
     public String login(){
         return "account/login";
@@ -36,7 +39,7 @@ public class AccountController {
         return "/account/email_form";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/email_form")
     public String register(User user){
         //회원가입시 패스워드 암호화 , 사용자 권한 추가 -> service 클래스 에서 처리
         userService.save(user);
