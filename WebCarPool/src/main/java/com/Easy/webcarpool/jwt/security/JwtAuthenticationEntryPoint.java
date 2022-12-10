@@ -1,4 +1,4 @@
-package com.Easy.webcarpool.jwt;
+package com.Easy.webcarpool.jwt.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
