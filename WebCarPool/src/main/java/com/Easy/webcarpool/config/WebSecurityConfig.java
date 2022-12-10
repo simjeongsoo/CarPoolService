@@ -1,7 +1,7 @@
 package com.Easy.webcarpool.config;
 
 import com.Easy.webcarpool.jwt.*;
-import com.Easy.webcarpool.service.CustomUserDetailsService;
+import com.Easy.webcarpool.jwt.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtAuthenticationFilter jwtFilter() {
-        return new JwtAuthenticationFilter(tokenProvider);
+        return new JwtAuthenticationFilter();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig 클래스 적용
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig());
     }
 
 //=========================================================================================
