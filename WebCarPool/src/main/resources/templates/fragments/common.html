@@ -22,7 +22,7 @@
   <!-- jquery-3.5.0 / modal control -->
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-  <title th:text="${title}"></title>
+    <title th:text="${title}"></title>
 </head>
 
   <body>
@@ -55,6 +55,12 @@
                 </li>
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'info'? 'active'">
                   <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/info}">내정보<span class="sr-only" th:if="${menu} == 'info'"></span></a>
+
+                    <ul>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="https://naver.com">내정보</a></li>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="https://google.com">내정보 수정</a></li>1
+                    </ul>
+
                 </li>
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'service-center'? 'active'">
                   <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/service-center}">고객센터<span class="sr-only" th:if="${menu} == 'service-center'"></span></a>
@@ -92,6 +98,19 @@
           <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
           <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
           <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+
+            <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script>
+                $('nav li').hover(
+                    function() {
+                        $('ul', this).stop().slideDown(200);
+                    },
+                    function() {
+                        $('ul', this).stop().slideUp(200);
+                    }
+                );
+            </script>
 
 
             <div class="container">
