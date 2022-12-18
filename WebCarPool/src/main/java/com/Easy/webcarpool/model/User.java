@@ -1,6 +1,9 @@
 package com.Easy.webcarpool.model;
 
+import com.Easy.webcarpool.dto.ProfileResponseDto;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -10,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +28,9 @@ public class User {
     private boolean gender;  // 성별
     @Size(max = 8)
     private String birth;    // 생년월일
+    private String introduce; // 자기소개
+
+//    private String introduce; // 자기소개
 
 
     // Role table과 ManyToMany 매핑
@@ -41,4 +48,15 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //쓸데없는 쿼리 안불러오는 LAZY
 //    @JsonIgnore
     private List<Board> boards = new ArrayList<>();
+
+    @Builder
+    public User(String realname, String username, String email, String address, boolean gender, String birth, String introduce) {
+        this.realname = realname;
+        this.username = username;
+        this.email = email;
+        this.address = address;
+        this.gender = gender;
+        this.birth = birth;
+//        this.introduce = introduce;
+    }
 }
