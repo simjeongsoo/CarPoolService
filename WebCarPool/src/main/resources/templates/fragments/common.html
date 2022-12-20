@@ -54,13 +54,11 @@
                   <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/chat/room}">채팅<span class="sr-only" th:if="${menu} == 'chat'"></span></a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'info'? 'active'">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/info}">내정보<span class="sr-only" th:if="${menu} == 'info'"></span></a>
-
+                  <a class="nav-link py-3 px-0 px-lg-3 rounded">내정보<span class="sr-only" th:if="${menu} == 'info'"></span></a>
                     <ul>
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="https://naver.com">내정보</a></li>
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="https://google.com">내정보 수정</a></li>1
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/info}">내정보</a></li>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/info/update}">내정보 수정</a></li>
                     </ul>
-
                 </li>
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'service-center'? 'active'">
                   <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/service-center}">고객센터<span class="sr-only" th:if="${menu} == 'service-center'"></span></a>
