@@ -35,7 +35,7 @@
     <!--    <img class="d-block mx-auto mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
     <h2>내정보</h2>
     <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-    <h4 class="ui-button">사진변경</h4>
+<!--    <h4 class="ui-button">사진변경</h4>-->
 <!--      <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">사진변경</button>-->
     <p class="lead">차량 등록을 해야 애플리케이션 기능 사용 가능</p>
   </div>
@@ -81,148 +81,107 @@
               <span type="email" class="form-control" id="email" th:text="*{email}" readonly></span>
             </div>
           </div>
-        </form>
+          </div>
+<!--        </form>-->
         <!--form, 조회 end-->
 
         <!--form, post-->
-        <form class="form-signin" th:action="@{/info}" method="post" th:object="${profileUpdate}">
+<!--        <form class="form-signin" th:action="@{/info}" method="post" th:object="${profileUpdate}">-->
 
-          <!--주소, update-->
+          <!--주소, readonly-->
           <div class="mb-3">
             <label for="address"></label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Address</span>
               </div>
-              <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="주소 api사용" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <span type="text" class="form-control" id="address" th:text="*{address}" readonly></span>
             </div>
           </div>
 
-          <!--생년월일, update-->
+          <!--생년월일, readonly-->
           <div class="mb-3">
             <label for="birth"><span class="text-muted"></span></label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">생년월일</span>
               </div>
-              <input type="text" class="form-control" id="birth" placeholder="생년월일 설정 UI 추가" required>
-
-<!--              <label class="mb-3 form-label" for="birth">생년월일</label>-->
-<!--              <div class="mb-3 input-group-prepend" id="birth">-->
-<!--                &lt;!&ndash;년&ndash;&gt;-->
-<!--                <div class="birth dropdown" style="float: left; width: 33%">-->
-
-<!--                  <select  class="form-control" id="year" th:name="year">-->
-<!--                    &lt;!&ndash;                  <option th:value="*{year}" th:text="*{year}" selected></option>&ndash;&gt;-->
-<!--                    <option value="">년(YY)</option>-->
-<!--                    <th:block th:each="a: ${#numbers.sequence(2004,1960)}">-->
-<!--                      <option th:value="${a}" th:text="${a}"></option>-->
-<!--                    </th:block>-->
-<!--                  </select>-->
-
-<!--                </div>-->
-<!--                &lt;!&ndash;월&ndash;&gt;-->
-<!--                <div class="birth dropdown" style="float: left; width: 33%">-->
-<!--                  <select  class="form-control" id="month" th:name="month">-->
-<!--                    &lt;!&ndash;                  <option th:value="*{month}" th:text="*{month}" selected></option>&ndash;&gt;-->
-<!--                    <option value="">월(mm)</option>-->
-<!--                    <th:block th:each="month: ${#numbers.listFormatInteger(#numbers.sequence(1,12),2)}">-->
-<!--                      <option class="dropdown-item" th:value="${month}" th:text="${month}"></option>-->
-<!--                    </th:block>-->
-<!--                  </select>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;일&ndash;&gt;-->
-<!--                <div class="birth dropdown" style="float: right; width: 33%">-->
-<!--                  <select  class="form-control" id="day" th:name="day">-->
-<!--                    &lt;!&ndash;                  <option th:value="*{day}" th:text="*{day}" selected></option>&ndash;&gt;-->
-<!--                    <option value="">일(dd)</option>-->
-<!--                    <th:block th:each="day: ${#numbers.listFormatInteger(#numbers.sequence(1,31),2)}">-->
-<!--                      <option class="dropdown-item" th:value="${day}" th:text="${day}"></option>-->
-<!--                    </th:block>-->
-<!--                  </select>-->
-<!--                </div>-->
-<!--              </div>-->
-
+              <span type="text" class="form-control" id="birth" readonly></span>
             </div>
           </div>
 
-          <!--자기소개, update-->
+          <!--자기소개, readonly-->
           <div class="mb-3">
             <label for="profileImg"><span class="text-muted"></span></label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">자기소개</span>
               </div>
-              <input type="text" class="form-control" id="profileImg" placeholder="자기소개">
+              <span type="text" class="form-control" id="profileImg" readonly></span>
             </div>
           </div>
+
 
           <!--구분선-->
           <hr class="mb-4">
 
-          <h4 class="mb-4">차량등록</h4>
+          <h4 class="mb-4">차량정보</h4>
 
-            <!--면허등록, update-->
+            <!--면허등록, readonly-->
             <div class="mb-3">
               <label for="license"><span class="text-muted"></span></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">운전면허</span>
                 </div>
-                <input type="text" class="form-control" id="license" placeholder="운전면허 이미지 업로드">
+                <span type="text" class="form-control" id="license" readonly></span>
               </div>
             </div>
 
-            <!--차량번호, update-->
+            <!--차량번호, readonly-->
             <div class="mb-3">
               <label for="carNumber"><span class="text-muted"></span></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량번호</span>
                 </div>
-                <input type="text" class="form-control" id="carNumber" placeholder="차량번호 입력">
+                <span type="text" class="form-control" id="carNumber" readonly></span>
               </div>
             </div>
 
-            <!--차종, update-->
+            <!--차종, readonly-->
             <div class="mb-3">
               <label for="carType"><span class="text-muted"></span></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">차종등록</span>
                 </div>
-                <input type="text" class="form-control" id="carType" placeholder="차종 입력">
+                <span type="text" class="form-control" id="carType" readonly></span>
               </div>
             </div>
 
-            <!--차량 컬러, update-->
+            <!--차량 컬러, readonly-->
             <div class="mb-3">
               <label for="carColor"><span class="text-muted"></span></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량색상</span>
                 </div>
-                <input type="text" class="form-control" id="carColor" placeholder="차량 색상 입력">
+                <span type="text" class="form-control" id="carColor" readonly></span>
               </div>
             </div>
 
-            <!--차량 이미지, update-->
+            <!--차량 이미지, readonly-->
             <div class="mb-3">
               <label for="carImg"><span class="text-muted"></span></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량 이미지</span>
                 </div>
-                <input type="text" class="form-control" id="carImg" placeholder="차량 이미지 업로드">
+                <span type="text" class="form-control" id="carImg" readonly></span>
               </div>
             </div>
-
-
-
-          <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">저장</button>
+<!--          <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">저장</button>-->
         </form>
       </div>
     </div>
