@@ -6,6 +6,7 @@ import com.Easy.webcarpool.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,18 @@ public class UserInfoController {
         return "info/info";
     }
 
-    @PostMapping("/info")
+    /**
+     * 사용자 프로필 업데이트
+     */
+    @GetMapping("/info/update")
+    public String userInfoUpdate(Model model, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ProfileResponseDto profileResponseDto = userService.getUserProfile(userDetails.getUsername());
+        model.addAttribute("profile", profileResponseDto);
+        return "/info/info_update";
+    }
+
+    @PostMapping("/info/update")
     public String userInfo(@Valid ProfileUpdateRequestDto profileUpdateRequestDto) {
 //        if (result.hasErrors()) {
 //            return "/info/info";
@@ -46,7 +58,7 @@ public class UserInfoController {
         logger.debug("profileUpdateRequestDto : {}", profileUpdateRequestDto.getAddress());
         logger.debug("profileUpdateRequestDto : {}", profileUpdateRequestDto.getBirth());
         logger.debug("profileUpdateRequestDto : {}", profileUpdateRequestDto.getIntroduce());
-        return "/info/info";
+        return "/info/info_update";
     }
 
 }
