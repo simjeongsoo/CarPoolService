@@ -1,5 +1,7 @@
 package com.Easy.webcarpool.service;
 
+import com.Easy.webcarpool.dto.ProfileResponseDto;
+import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.dto.SignUpRequestForm;
 import com.Easy.webcarpool.model.Role;
 import com.Easy.webcarpool.model.User;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 //user 관련 비즈니스 로직 서비스 클래스
 @Service
@@ -49,10 +52,27 @@ public class UserService {
         if (findUsers != null) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+
+    /**
+     * 프로필 조회
+     * */
+    public ProfileResponseDto getUserProfile(String username) {
+        User findByUsername = userRepository.findByUsername(username);
+        return new ProfileResponseDto().toDto(findByUsername);
 
     }
 
-    public List<User> findMembers() {
+    /**
+     * 프로필 업데이트
+     * */
+    @Transactional
+    public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto) {
+        User updateProfile = profileUpdateRequestDto.toEntity();
+        userRepository.save(updateProfile);
+    }
+
+    public List<User> findUsers() {
         return userRepository.findAll();
     }
 

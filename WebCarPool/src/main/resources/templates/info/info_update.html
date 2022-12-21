@@ -45,7 +45,7 @@
     <div class="col-md-5" style="float:none;margin: auto">
 
       <!--form, 조회-->
-      <form class="form-getProfile" th:action="@{/info}" th:object="${profile}">
+      <form class="form-getProfile" th:action="@{/info/update/get}" th:object="${profileGet}">
         <div class="row">
 
           <!--이름, readonly-->
@@ -82,12 +82,11 @@
             </div>
           </div>
         </div>
-        <!--        </form>-->
+      </form>
         <!--form, 조회 end-->
 
         <!--form, post-->
-        <!--        <form class="form-signin" th:action="@{/info}" method="post" th:object="${profileUpdate}">-->
-
+      <form class="form-signin" th:action="@{/info/update}" th:object="${profileUpdate}">
         <!--주소, update-->
         <div class="mb-3">
           <label for="address"></label>
@@ -95,7 +94,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Address</span>
             </div>
-            <input type="text" class="form-control" id="address" th:text="*{address}" placeholder="주소 api 사용 예정">
+            <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="주소 api 사용 예정">
             <div class="invalid-feedback">
               Please enter your shipping address.
             </div>
@@ -109,7 +108,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">생년월일</span>
             </div>
-            <input type="text" class="form-control" id="birth" placeholder="생년월일 설정 UI 추가" required>
+            <input type="text" class="form-control" id="birth" th:field="*{birth}" placeholder="생년월일 설정 UI 추가" required>
           </div>
         </div>
 
@@ -120,7 +119,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">자기소개</span>
             </div>
-            <input type="text" class="form-control" id="profileImg" placeholder="자기소개">
+            <input type="text" class="form-control" id="profileImg" th:field="*{introduce}" placeholder="자기소개">
           </div>
         </div>
 
@@ -209,4 +208,23 @@
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<script type="text/javascript">
+  function getProfile() {
+    $.ajax({
+      type:"GET",
+      url: "/info/update/get",
+      dataType: "text"
+    })
+            .done(function (result){
+              console.log(result);
+              $("#getProfile").replaceWith(result);
+            })
+            .fail(function (jqXHR) {
+              console.log(jqXHR)
+            })
+            .always(function () {
+              console.log("요청, 응답 결과에 상관없이 실행")
+            })
+  }
+</script>
 </html>
