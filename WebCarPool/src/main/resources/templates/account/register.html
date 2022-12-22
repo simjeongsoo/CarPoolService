@@ -16,31 +16,22 @@
   </head>
 
   <body class="text-center bg-primary">
-      <form class="form-signin" th:action="@{/account/register}" method="post">
-                                                      <!-- register logo img -->
-        <a th:href="@{/}"><img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/4727/4727194.png" alt="" width="150" height="150"></a>
-          <h1 class="h3 mb-3 text-white">회원가입</h1>
-          <div th:if="${param.error}" class="alert alert-danger" role="alert">
-              Invalid username and password.
-          </div>
-          <div th:if="${param.logout}" class="alert alert-primary" role="alert">
-              You have been logged out.
-          </div>
-            <label for="Username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-            <!-- <div class="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div> -->
-            <button class="btn btn-lg btn-secondary btn-block" type="submit">회원가입</button>
-            <button class="btnKakao btn-lg btn-secondary btn-block" type="button">카카오 회원가입</button>
-            <button class="btnGoogle btn-lg btn-secondary btn-block" type="button">구글 회원가입</button>
-            <button class="btnNaver btn-lg btn-secondary btn-block" type="button">네이버 회원가입</button>
-            <p class="mt-5 mb-3 text-muted">&copy; Easy CarPool</p>
-          </form>
+
+    <form class="form-signin">
+      <!-- register logo img -->
+      <a th:href="@{/}"><img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/4727/4727194.png" alt="" width="150" height="150"></a>
+      <h1 class="h3 mb-3 text-white">회원가입</h1>
+
+      <div>
+        <button class="btnEmail btn-lg btn-secondary btn-block" type="button" th:onclick="|location.href='@{/account/email_form}'|">이메일 회원가입</button>
+        <button class="btnKakao btn-lg btn-secondary btn-block" type="button">카카오 회원가입</button>
+        <button class="btnGoogle btn-lg btn-secondary btn-block" type="button">구글 회원가입</button>
+        <button class="btnNaver btn-lg btn-secondary btn-block" type="button">네이버 회원가입</button>
+      </div>
+
+
+      <p class="mt-5 mb-3 text-muted">&copy; Easy CarPool</p>
+    </form>
 
 <!--          <footer th:replace="fragments/common :: footer"></footer>-->
   </body>
