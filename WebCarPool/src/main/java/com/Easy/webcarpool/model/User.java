@@ -26,7 +26,7 @@ public class User {
     private Boolean enable;  // 활성화 여부
     private String address;  // 주소
     private boolean gender;  // 성별
-    @Size(max = 8)
+//    @Size(max = 8)
     private String birth;    // 생년월일
     private String introduce; // 자기소개
 
@@ -58,5 +58,11 @@ public class User {
         this.gender = gender;
         this.birth = birth;
 //        this.introduce = introduce;
+    }
+
+    public void update(String address, String birth, String introduce) {
+        this.address = address;
+        this.birth = birth;
+        this.introduce = introduce;
     }
 }
