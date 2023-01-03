@@ -31,10 +31,13 @@ public class UserInfoService {
      * 프로필 업데이트
      * */
     @Transactional
-    public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto) {
-        /*User updateProfile = profileUpdateRequestDto.toEntity();
-        userRepository.save(updateProfile);*/
-        
+    public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto , String username) {
+//        User updateProfile = profileUpdateRequestDto.toEntity();
+        //        userRepository.save(updateProfile);
+
+        User updateProfile = userRepository.findByUsername(username); // dirty checking
+        updateProfile.update(profileUpdateRequestDto.getAddress(), profileUpdateRequestDto.getBirth(), profileUpdateRequestDto.getIntroduce());
+
     }
 
     public List<User> findUsers() {

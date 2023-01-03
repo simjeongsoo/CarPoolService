@@ -52,18 +52,18 @@ public class UserInfoController {
     }
 
     @PostMapping("/info/update")
-    public String userInfoUpdate(@RequestBody ProfileUpdateRequestDto profileUpdateRequestDto) {
+    public String userInfoUpdate(@RequestBody ProfileUpdateRequestDto profileUpdateRequestDto, Authentication authentication) {
+
 //        if (result.hasErrors()) {
 //            return "/info/info";
 //        }
 
-//        model.addAttribute("updateForm", new ProfileUpdateRequestDto());
-        userInfoService.updateProfile(profileUpdateRequestDto);
-        logger.debug("getAddress : {}", profileUpdateRequestDto.getAddress());
-        logger.debug("getBirth : {}", profileUpdateRequestDto.getBirth());
-        logger.debug("getIntroduce : {}", profileUpdateRequestDto.getIntroduce());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        userInfoService.updateProfile(profileUpdateRequestDto, username);
 
         return "redirect:/info/info_update";
+
     }
 
 }
