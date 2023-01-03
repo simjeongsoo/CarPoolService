@@ -61,6 +61,7 @@ public class User {
     }
 
     public void update(String address, String birth, String introduce) {
+        // dirty checking
         this.address = address;
         this.birth = birth;
         this.introduce = introduce;
