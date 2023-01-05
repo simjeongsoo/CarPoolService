@@ -24,7 +24,9 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    //--회원 가입--//
+    /**
+     * 회원가입
+     * */
     @Transactional
     public User join(SignUpRequestForm form){
 
@@ -52,28 +54,6 @@ public class UserService {
         if (findUsers != null) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-    }
-
-    /**
-     * 프로필 조회
-     * */
-    public ProfileResponseDto getUserProfile(String username) {
-        User findByUsername = userRepository.findByUsername(username);
-        return new ProfileResponseDto().toDto(findByUsername);
-
-    }
-
-    /**
-     * 프로필 업데이트
-     * */
-    @Transactional
-    public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto) {
-        User updateProfile = profileUpdateRequestDto.toEntity();
-        userRepository.save(updateProfile);
-    }
-
-    public List<User> findUsers() {
-        return userRepository.findAll();
     }
 
     //--단일 회원 조회--//
