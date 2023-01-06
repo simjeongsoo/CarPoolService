@@ -32,14 +32,24 @@
 <br><br><br><br>
 
 <body class="bg-light">
-
 <!--제목-->
 <div class="py-5 text-center">
-  <!--    <img class="d-block mx-auto mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-  <h2>내정보 수정</h2>
-  <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-      <h4 class="ui-button">사진변경</h4>
-  <!--      <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">사진변경</button>-->
+    <h2>내정보 수정</h2>
+      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+        <rect width="100%" height="100%" fill="#777"/>
+      </svg>
+  <div class="container row text-center col-md-5" style="float: none; margin: auto;">
+<!--    <input type="file" id="profileImg" name="profileImg">-->
+<!--    <br>-->
+<!--    <button class="btn btn-primary btn-lg btn-block mt-5" id="submitButton" onclick="uploadProfileImg()">사진변경</button>-->
+
+      <h5>사진업로드</h5>
+      <input class="form-control" type="file" id="file" name="file">
+      <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="">사진변경</button>
+<!--      <input class="form-control" type="submit" onclick="updateProfile()"/>-->
+  </div>
+
+  <br>
   <p class="lead">차량 등록을 해야 애플리케이션 기능 사용 가능</p>
 </div>
 
@@ -129,7 +139,7 @@
 
     <!------------------------------------------------------------------------------------------------------------->
 
-      <form class="form-getProfile" method="post">
+      <form class="form-getProfile" method="post" enctype="multipart/form-data">
         <!--구분선-->
         <hr class="mb-4">
 
@@ -194,6 +204,8 @@
       </form>
     </div>
   </div>
+</div>
+
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; Easy CarPool</p>
@@ -210,8 +222,12 @@
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<!--ajax-->
 <script type="text/javascript">
   function updateProfile() {
+    const formData = new FormData();
+
+
     const data = JSON.stringify({
       address:$("#address").val(),
       birth: $("#birth").val(),

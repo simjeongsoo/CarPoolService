@@ -106,18 +106,18 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">생년월일</span>
               </div>
-              <span type="text" class="form-control" id="birth" readonly></span>
+              <span type="text" class="form-control" id="birth" th:text="*{birth}" readonly></span>
             </div>
           </div>
 
           <!--자기소개, readonly-->
           <div class="mb-3">
-            <label for="profileImg"><span class="text-muted"></span></label>
+            <label for="introduce"><span class="text-muted"></span></label>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">자기소개</span>
               </div>
-              <span type="text" class="form-control" id="profileImg" readonly></span>
+              <span type="text" class="form-control" id="introduce" th:text="*{introduce}" readonly></span>
             </div>
           </div>
 
