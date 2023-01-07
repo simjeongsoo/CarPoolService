@@ -1,12 +1,11 @@
 package com.Easy.webcarpool.model;
 
-import com.Easy.webcarpool.dto.ProfileResponseDto;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +18,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // pk
 
-    private String realname; // 실명
-    private String username; // 닉네임(아이디)
-    private String email;    // 이메일
-    private String password; // 비밀번호
-    private Boolean enable;  // 활성화 여부
-    private String address;  // 주소
-    private boolean gender;  // 성별
+    private String realname;    // 실명
+    private String username;    // 닉네임(아이디)
+    private String email;       // 이메일
+    private String password;    // 비밀번호
+    private Boolean enable;     // 활성화 여부
+    private String address;     // 주소
+    private boolean gender;     // 성별
 //    @Size(max = 8)
-    private String birth;    // 생년월일
-    private String introduce; // 자기소개
+    private String birth;       // 생년월일
+    private String introduce;   // 자기소개
 
-//    private String introduce; // 자기소개
+    private String profileImgOrgNm;         // 프로필 이미지 업로드 이름
+    private String profileImgSavedNm;       // 프로필 이미지 저장 이름
+    private String profileImgSavedPath;     // 프로필 이미지 경로
 
 
     // Role table과 ManyToMany 매핑
@@ -50,20 +51,34 @@ public class User {
     private List<Board> boards = new ArrayList<>();
 
     @Builder
-    public User(String realname, String username, String email, String address, boolean gender, String birth, String introduce) {
+    public User(String realname, String username, String email, String address, boolean gender, String birth, String introduce, String profileImgSavedPath, String profileImgOrgNm, String profileImgSavedNm) {
         this.realname = realname;
         this.username = username;
         this.email = email;
         this.address = address;
         this.gender = gender;
         this.birth = birth;
-//        this.introduce = introduce;
+        this.introduce = introduce;
+        this.profileImgSavedPath = profileImgSavedPath;
+        this.profileImgOrgNm = profileImgOrgNm;
+        this.profileImgSavedNm = profileImgSavedNm;
     }
 
-    public void update(String address, String birth, String introduce) {
-        // dirty checking
+    /**
+     * 정보수정
+     * dirty checking
+     * */
+    // 프로필 업데이트
+    public void updateProfile(String address, String birth, String introduce) {
         this.address = address;
         this.birth = birth;
         this.introduce = introduce;
+    }
+
+    // 프로필 이미지 업데이트
+    public void updateProfileImg(String profileImgOrgNm, String profileImgSavedNm, String profileImgSavedPath) {
+        this.profileImgOrgNm = profileImgOrgNm;
+        this.profileImgSavedNm = profileImgSavedNm;
+        this.profileImgSavedPath = profileImgSavedPath;
     }
 }
