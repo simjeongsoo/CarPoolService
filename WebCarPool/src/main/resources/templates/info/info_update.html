@@ -45,7 +45,7 @@
 
       <h5>사진업로드</h5>
       <input class="form-control" type="file" id="file" name="file">
-      <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="">사진변경</button>
+      <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="updateProfile()">사진변경</button>
 <!--      <input class="form-control" type="submit" onclick="updateProfile()"/>-->
   </div>
 
@@ -225,23 +225,27 @@
 <!--ajax-->
 <script type="text/javascript">
   function updateProfile() {
-    const formData = new FormData();
 
-
-    const data = JSON.stringify({
+    const data2 = {
       address:$("#address").val(),
       birth: $("#birth").val(),
-      introduce: $("#introduce").val()
-    });
-    // const sendDto = {
-    //   result:data
-    // };
+      introduce: $("#introduce").val(),
+    }
+    let file = $('#file')[0].files[0];
+    let formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('key', new Blob([JSON.stringify(data2)] , {type: "application/json"}));
+
     $.ajax({
       type:"POST",
       url: "/info/update",
-      // dataType: "text",
-      contentType: 'application/json',
-      data: data,
+      processData: false,
+      contentType: false,
+      data: formData,
+      complete: function () {
+        alert("success");
+      }
     })
             .done(function (data){
               console.log(data);
@@ -251,8 +255,34 @@
               console.log(jqXHR)
             })
             .always(function () {
-              console.log("요청, 응답 결과에 상관없이 실행")
+              // console.log("요청, 응답 결과에 상관없이 실행")
             })
+
+    // const data = JSON.stringify({
+    //   address:$("#address").val(),
+    //   birth: $("#birth").val(),
+    //   introduce: $("#introduce").val()
+    // });
+    // const sendDto = {
+    //   result:data
+    // };
+    // $.ajax({
+    //   type:"POST",
+    //   url: "/info/update",
+    //   // dataType: "text",
+    //   contentType: 'application/json',
+    //   data: data,
+    // })
+    //         .done(function (data){
+    //           console.log(data);
+    //           $("#form-updateProfile").replaceWith(data);
+    //         })
+    //         .fail(function (jqXHR) {
+    //           console.log(jqXHR)
+    //         })
+    //         .always(function () {
+    //           console.log("요청, 응답 결과에 상관없이 실행")
+    //         })
   }
 </script>
 </html>
