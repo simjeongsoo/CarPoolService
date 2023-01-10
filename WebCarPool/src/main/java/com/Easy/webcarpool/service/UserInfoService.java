@@ -48,10 +48,17 @@ public class UserInfoService {
     }
 
     /**
+     * 프로필 이미지 조회
+     * */
+    public User getUserProfileImg(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    /**
      * 프로필 이미지 저장
-    * */
+     */
     @Transactional
-    public Long saveProfileImg(MultipartFile files) throws IOException {
+    public Long saveProfileImg(MultipartFile files, String username) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -82,7 +89,9 @@ public class UserInfoService {
         files.transferTo(new File(savedPath));
 
         // 데이터베이스에 파일 정보 저장
-        User savedProfile = userRepository.save(file);
+        User updateProfile = userRepository.findByUsername(username); // dirty checking
+        updateProfile.updateProfileImg(file.getProfileImgOrgNm(),file.getProfileImgSavedNm(),file.getProfileImgSavedPath());
+        User savedProfile = userRepository.save(updateProfile);
 
         return savedProfile.getId();
     }
