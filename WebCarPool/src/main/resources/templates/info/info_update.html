@@ -32,12 +32,16 @@
 <!--제목-->
 <div class="py-5 text-center">
   <h2>내정보 수정</h2>
-  <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="Img"/>
-
-  <div class="container row text-center col-md-5" style="float: none; margin: auto;">
+  <div>
+    <label for="file">
+      <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="Img"/>
+    </label>
+    <input class="form-control row-cols-sm-6" type="file" id="file" name="file" hidden>
+  </div>
+  <div class="container row-cols-sm-6 text-center col-md-5" style="float: none; margin: auto;">
 <!--      <h5>사진업로드</h5>-->
-      <input class="form-control" type="file" id="file" name="file">
-      <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="updateProfile()">사진변경</button>
+
+    <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="updateProfile()">사진변경</button>
   </div>
 
   <br>

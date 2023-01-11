@@ -28,7 +28,7 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @Value("${file.path}")
+    @Value("${profileImg.path}")
     private String savePath; // 업로드 파일 저장 위치
 
     /**

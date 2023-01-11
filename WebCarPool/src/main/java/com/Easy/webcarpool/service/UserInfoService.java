@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserInfoService {
 
-    @Value("${file.path}")
+    @Value("${profileImg.path}")
     private String fileDir;
 
     private final UserRepository userRepository;
