@@ -5,6 +5,7 @@ import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.model.User;
 import com.Easy.webcarpool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.monitor.FileEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

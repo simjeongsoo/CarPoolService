@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class UserInfoController {
      * 내정보
      */
     @GetMapping("/info")
-    public String userInfo(Model model, Authentication authentication) {
+    public String userInfo(Model model, Authentication authentication) throws IOException {
         // 현재 로그인한 사용자의 정보
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String currentUsername = userDetails.getUsername();
@@ -45,18 +44,23 @@ public class UserInfoController {
         ProfileResponseDto profileResponseDto = userInfoService.getUserProfile(currentUsername);
         model.addAttribute("profile", profileResponseDto);
 
-        // 사용자 프로필 이미지 조회
-        User userProfileImg = userInfoService.getUserProfileImg(currentUsername);
-        String profileImgSavedPath = userProfileImg.getProfileImgSavedPath();
-        String profileImg = profileImgSavedPath.substring(72);
-        model.addAttribute("profileImg",profileImg);
-        // /Users/simjeongsu/Documents/CarPoolService/WebCarPool/src/main/resources/static/uploadImg/7dab7a56-7283-45a4-8e9a-af49453b0dd2.jpeg
-
-        logger.debug("substring : {}", profileImg);
-
-
         return "info/info";
     }
+
+    // 프로필 이미지 출력 api
+    @GetMapping("/info/{username}")
+    @ResponseBody
+    public UrlResource getProfileImage(@PathVariable(value = "username",required = false) String username) throws IOException{
+        logger.debug("username : {} : ", username);
+        User userProfileImg = userInfoService.getUserProfileImg(username);
+        String profileImgSavedPath = userProfileImg.getProfileImgSavedPath();
+        logger.debug("profileImgSavedPath : {}",profileImgSavedPath);
+
+//        return new UrlResource("file:" + file.getSavedPath());
+        return new UrlResource("file:" + profileImgSavedPath);
+    }
+
+//======================================================================================================================
 
     /**
      * 내정보 수정

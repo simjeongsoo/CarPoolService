@@ -22,8 +22,6 @@
       }
     }
   </style>
-  <!-- Custom styles for this template -->
-  <link href="form-validation.css" rel="stylesheet">
 
   <title>내정보 수정</title>
 </head>
@@ -31,22 +29,15 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('info_update')"></nav>
 <br><br><br><br>
 
-<body class="bg-light">
 <!--제목-->
 <div class="py-5 text-center">
-    <h2>내정보 수정</h2>
-      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-        <rect width="100%" height="100%" fill="#777"/>
-      </svg>
-  <div class="container row text-center col-md-5" style="float: none; margin: auto;">
-<!--    <input type="file" id="profileImg" name="profileImg">-->
-<!--    <br>-->
-<!--    <button class="btn btn-primary btn-lg btn-block mt-5" id="submitButton" onclick="uploadProfileImg()">사진변경</button>-->
+  <h2>내정보 수정</h2>
+  <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="Img"/>
 
-      <h5>사진업로드</h5>
+  <div class="container row text-center col-md-5" style="float: none; margin: auto;">
+<!--      <h5>사진업로드</h5>-->
       <input class="form-control" type="file" id="file" name="file">
       <button class="btn btn-primary btn-sm btn-block" id="submitButton" onclick="updateProfile()">사진변경</button>
-<!--      <input class="form-control" type="submit" onclick="updateProfile()"/>-->
   </div>
 
   <br>
@@ -217,13 +208,14 @@
   </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<script src="form-validation.js"></script></body>
+<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
 <!--ajax-->
 <script type="text/javascript">
+  <!--json and file ajax-->
   function updateProfile() {
 
     const data2 = {
