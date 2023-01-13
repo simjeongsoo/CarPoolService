@@ -147,7 +147,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">운전면허</span>
             </div>
-            <input type="text" class="form-control" id="license" placeholder="운전면허 이미지 업로드">
+            <input type="file" class="form-control" id="license" placeholder="운전면허 이미지 업로드">
           </div>
         </div>
 
@@ -194,11 +194,12 @@
             <div class="input-group-prepend">
               <span class="input-group-text">차량 이미지</span>
             </div>
-            <input type="text" class="form-control" id="carImg" placeholder="차량 이미지 업로드">
+            <input type="file" class="form-control" id="carImg" placeholder="차량 이미지 업로드">
           </div>
         </div>
 
-        <button class="btn btn-primary btn-lg btn-block mb-5" type="submit">저장</button>
+<!--        <button class="btn btn-primary btn-lg btn-block mb-5" type="submit">저장</button>-->
+        <button class="btn btn-primary btn-lg btn-block mb-5" type="button" onclick="updateCarDetails()">저장</button>
       </form>
     </div>
   </div>
@@ -224,17 +225,19 @@
 <script type="text/javascript">
   <!--json and file ajax-->
   function updateProfile() {
+    // 프로필 업데이트 ajax
 
-    const data2 = {
+    const data1 = {
       address:$("#address").val(),
       birth: $("#birth").val(),
       introduce: $("#introduce").val(),
     }
+
     let file = $('#file')[0].files[0];
     let formData = new FormData();
 
     formData.append('file', file);
-    formData.append('key', new Blob([JSON.stringify(data2)] , {type: "application/json"}));
+    formData.append('key', new Blob([JSON.stringify(data1)] , {type: "application/json"}));
 
     $.ajax({
       type:"POST",
@@ -256,32 +259,45 @@
             .always(function () {
               // console.log("요청, 응답 결과에 상관없이 실행")
             })
+  }
 
-    // const data = JSON.stringify({
-    //   address:$("#address").val(),
-    //   birth: $("#birth").val(),
-    //   introduce: $("#introduce").val()
-    // });
-    // const sendDto = {
-    //   result:data
-    // };
-    // $.ajax({
-    //   type:"POST",
-    //   url: "/info/update",
-    //   // dataType: "text",
-    //   contentType: 'application/json',
-    //   data: data,
-    // })
-    //         .done(function (data){
-    //           console.log(data);
-    //           $("#form-updateProfile").replaceWith(data);
-    //         })
-    //         .fail(function (jqXHR) {
-    //           console.log(jqXHR)
-    //         })
-    //         .always(function () {
-    //           console.log("요청, 응답 결과에 상관없이 실행")
-    //         })
+  function updateCarDetails() {
+    // 차량 정보 업데이트 ajax
+
+    const data2 = {
+      carNum: $("#carNumber").val(),
+      carType: $("#carType").val(),
+      carColor: $("#carColor").val()
+    }
+
+    let file_licence = $('#license')[0].files[0];
+    let file_carImg = $('#carImg')[0].files[0];
+    let formData = new FormData();
+
+    formData.append('licence', file_licence);
+    formData.append('carImg', file_carImg);
+    formData.append('key2', new Blob([JSON.stringify(data2)] , {type: "application/json"}));
+
+    $.ajax({
+      type:"POST",
+      url: "/info/update",
+      processData: false,
+      contentType: false,
+      data: formData,
+      complete: function () {
+        // alert("success");
+      }
+    })
+            .done(function (data){
+              console.log(data);
+              $("#form-updateCarDetails").replaceWith(data);
+            })
+            .fail(function (jqXHR) {
+              console.log(jqXHR)
+            })
+            .always(function () {
+              // console.log("요청, 응답 결과에 상관없이 실행")
+            })
   }
 </script>
 </html>
