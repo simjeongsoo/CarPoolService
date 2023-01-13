@@ -34,7 +34,7 @@
   <h2>내정보 수정</h2>
   <div>
     <label for="file">
-      <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="Img"/>
+      <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="user upload Img"/>
     </label>
     <input class="form-control row-cols-sm-6" type="file" id="file" name="file" hidden>
   </div>
@@ -134,7 +134,7 @@
 
     <!------------------------------------------------------------------------------------------------------------->
 
-      <form class="form-getProfile" method="post" enctype="multipart/form-data">
+      <form class="form-updateCarDetails" method="post" enctype="multipart/form-data">
         <!--구분선-->
         <hr class="mb-4">
 
@@ -158,7 +158,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text">차량번호</span>
             </div>
-            <input type="text" class="form-control" id="carNumber" placeholder="차량번호 입력">
+<!--            <input type="text" class="form-control" id="carNumber"  placeholder="차량번호 입력">-->
+            <input type="text" class="form-control" id="carNumber" name="carNumber" th:value="*{carDetails.getCarNum()}" placeholder="차량번호 입력">
           </div>
         </div>
 
@@ -169,7 +170,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text">차종등록</span>
             </div>
-            <input type="text" class="form-control" id="carType" placeholder="차종 입력">
+<!--            <input type="text" class="form-control" id="carType" placeholder="차종 입력">-->
+            <input type="text" class="form-control" id="carType" name="carType" th:value="*{carDetails.getCarType()}" placeholder="차종 입력">
           </div>
         </div>
 
@@ -180,7 +182,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text">차량색상</span>
             </div>
-            <input type="text" class="form-control" id="carColor" placeholder="차량 색상 입력">
+<!--            <input type="text" class="form-control" id="carColor" placeholder="차량 색상 입력">-->
+            <input type="text" class="form-control" id="carColor" name="carColor" th:value="*{carDetails.getCarColor()}" placeholder="차량 색상 입력">
           </div>
         </div>
 
@@ -240,7 +243,7 @@
       contentType: false,
       data: formData,
       complete: function () {
-        alert("success");
+        // alert("success");
       }
     })
             .done(function (data){
