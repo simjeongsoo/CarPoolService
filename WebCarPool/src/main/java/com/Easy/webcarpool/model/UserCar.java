@@ -1,20 +1,19 @@
 package com.Easy.webcarpool.model;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-//@Entity
-//@Getter
-//@NoArgsConstructor
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserCar {
 
-//    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String licenceOrgNm;        // 운전면허 이미지 원본 이름
@@ -29,7 +28,7 @@ public class UserCar {
     private String carImgSavedNm;       // 차량 저장 이름
     private String carImgSavedPath;     // 차량 저장 경로
 
-//    @Builder
+    @Builder
     public UserCar(String licenceOrgNm, String licenceSavedNm, String licenceSavedPath, String carNum, String carType, String carColor, String carImgOrgNm, String carImgSavedNm, String carImgSavedPath) {
         this.licenceOrgNm = licenceOrgNm;
         this.licenceSavedNm = licenceSavedNm;
@@ -41,4 +40,11 @@ public class UserCar {
         this.carImgSavedNm = carImgSavedNm;
         this.carImgSavedPath = carImgSavedPath;
     }
+
+    /**
+     * 연관관계 매핑
+     */
+
+    @OneToOne(mappedBy = "userCar",fetch = FetchType.LAZY)
+    private User user; // 유저테이블과 1:1 양방향 매핑
 }

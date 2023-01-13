@@ -1,5 +1,6 @@
 package com.Easy.webcarpool.controller;
 
+import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.model.User;
@@ -17,7 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Controller
 @PropertySource("classpath:/application.properties")
@@ -44,6 +48,15 @@ public class UserInfoController {
         ProfileResponseDto profileResponseDto = userInfoService.getUserProfile(currentUsername);
         model.addAttribute("profile", profileResponseDto);
 
+        // 차량 정보 조회
+        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
+
+        logger.debug("차량색상 : {}", userCarDetails.getCarColor());
+        logger.debug("차종 : {}", userCarDetails.getCarType());
+        logger.debug("차량번호 : {}", userCarDetails.getCarNum());
+
+        model.addAttribute("carDetails", userCarDetails);
+
         return "info/info";
     }
 
@@ -51,13 +64,20 @@ public class UserInfoController {
     @GetMapping("/info/{username}")
     @ResponseBody
     public UrlResource getProfileImage(@PathVariable(value = "username",required = false) String username) throws IOException{
-        logger.debug("username : {} : ", username);
-        User userProfileImg = userInfoService.getUserProfileImg(username);
-        String profileImgSavedPath = userProfileImg.getProfileImgSavedPath();
-        logger.debug("profileImgSavedPath : {}",profileImgSavedPath);
 
-//        return new UrlResource("file:" + file.getSavedPath());
-        return new UrlResource("file:" + profileImgSavedPath);
+        String defaultUserProfilePath = "/Users/simjeongsu/Documents/CarPoolService/images/user.png";
+
+        try {
+            Optional<User> userProfileImg = userInfoService.getUserProfileImg(username);
+            String profileImgSavedPath = userProfileImg.get().getProfileImgSavedPath();
+            if (profileImgSavedPath != null) {
+                return new UrlResource("file:" + profileImgSavedPath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new UrlResource("file:" + defaultUserProfilePath);
     }
 
 //======================================================================================================================
@@ -75,11 +95,14 @@ public class UserInfoController {
         ProfileResponseDto profileResponseDto = userInfoService.getUserProfile(currentUsername);
         model.addAttribute("profile", profileResponseDto);
 
-        // 사용자 프로필 이미지 조회
-        User userProfileImg = userInfoService.getUserProfileImg(currentUsername);
-        String profileImgSavedPath = userProfileImg.getProfileImgSavedPath();
-        String profileImg = profileImgSavedPath.substring(79);
-        model.addAttribute("profileImg",profileImg);
+        // 차량 정보 조회
+        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
+
+        logger.debug("차량색상 : {}", userCarDetails.getCarColor());
+        logger.debug("차종 : {}", userCarDetails.getCarType());
+        logger.debug("차량번호 : {}", userCarDetails.getCarNum());
+
+        model.addAttribute("carDetails", userCarDetails);
 
         return "/info/info_update";
     }
@@ -113,4 +136,11 @@ public class UserInfoController {
 
         return "redirect:/info/info_update";
     }
+
+//======================================================================================================================
+
+    /**
+     * 차량등록
+     * */
+
 }

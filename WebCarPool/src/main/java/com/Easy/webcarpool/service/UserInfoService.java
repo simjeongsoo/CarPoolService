@@ -1,8 +1,11 @@
 package com.Easy.webcarpool.service;
 
+import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.model.User;
+import com.Easy.webcarpool.model.UserCar;
+import com.Easy.webcarpool.repository.UserCarRepository;
 import com.Easy.webcarpool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.monitor.FileEntry;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,14 +29,28 @@ public class UserInfoService {
     private String fileDir;
 
     private final UserRepository userRepository;
+    private final UserCarRepository userCarRepository;
 
     /**
      * 프로필 조회
      * */
+    // 사용자 정보 조회
     public ProfileResponseDto getUserProfile(String username) {
 
-        User findByUsername = userRepository.findByUsername(username);
+//        User findByUsername = userRepository.findByUsername(username);
+        User findByUsername = userRepository.findByUsername(username).get();
         return new ProfileResponseDto().toDto(findByUsername);
+
+    }
+
+    // 차량조회
+    public ProfileCarDetailsResponseDto getUserCarDetails(String username) {
+
+//        Long userId = userRepository.findByUsername(username).getId();
+        Long userId = userRepository.findByUsername(username).get().getId();
+        UserCar userCarDetails = userCarRepository.findByUser_Id(userId);
+
+        return new ProfileCarDetailsResponseDto().toDto(userCarDetails);
 
     }
 
@@ -42,7 +60,8 @@ public class UserInfoService {
     @Transactional
     public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto , String username) {
 
-        User updateProfile = userRepository.findByUsername(username); // dirty checking
+//        User updateProfile = userRepository.findByUsername(username); // dirty checking
+        User updateProfile = userRepository.findByUsername(username).get();
         updateProfile.updateProfile(profileUpdateRequestDto.getAddress(), profileUpdateRequestDto.getBirth(), profileUpdateRequestDto.getIntroduce());
 
     }
@@ -50,7 +69,8 @@ public class UserInfoService {
     /**
      * 프로필 이미지 조회
      * */
-    public User getUserProfileImg(String username) {
+    public Optional<User> getUserProfileImg(String username) {
+//        return userRepository.findByUsername(username);
         return userRepository.findByUsername(username);
     }
 
@@ -59,6 +79,9 @@ public class UserInfoService {
      */
     @Transactional
     public Long saveProfileImg(MultipartFile files, String username) throws IOException {
+
+        // 프로필 이미지가 존재하면 삭제후 업데이트 로직 추가 예정
+
         if (files.isEmpty()) {
             return null;
         }
@@ -89,11 +112,25 @@ public class UserInfoService {
         files.transferTo(new File(savedPath));
 
         // 데이터베이스에 파일 정보 저장
-        User updateProfile = userRepository.findByUsername(username); // dirty checking
-        updateProfile.updateProfileImg(file.getProfileImgOrgNm(),file.getProfileImgSavedNm(),file.getProfileImgSavedPath());
+//        User updateProfile = userRepository.findByUsername(username); // dirty checking
+        User updateProfile = userRepository.findByUsername(username).get();
+
+        updateProfile.updateProfileImg(
+                file.getProfileImgOrgNm()
+                ,file.getProfileImgSavedNm()
+                ,file.getProfileImgSavedPath()
+        );
+
         User savedProfile = userRepository.save(updateProfile);
 
         return savedProfile.getId();
+    }
+
+    /**
+     * 프로필 이미지 삭제
+     */
+    public void deleteProfile() {
+        // to be added ...
     }
 
     public List<User> findUsers() {
