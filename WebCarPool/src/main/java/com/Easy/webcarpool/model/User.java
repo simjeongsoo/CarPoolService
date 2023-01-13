@@ -88,7 +88,7 @@ public class User {
         this.profileImgSavedPath = profileImgSavedPath;
     }
 
-    public void updateUserCar(String username, UserCar userCar) {
+    public void updateUserCar(String username, UserCar userCar) { // 테스트용 메서드(delete)
         this.username = username;
         this.userCar = userCar;
     }

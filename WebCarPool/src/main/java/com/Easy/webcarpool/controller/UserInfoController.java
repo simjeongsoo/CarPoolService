@@ -1,5 +1,6 @@
 package com.Easy.webcarpool.controller;
 
+import com.Easy.webcarpool.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
@@ -17,9 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -75,6 +78,8 @@ public class UserInfoController {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NoSuchElementException e) {
+
         }
 
         return new UrlResource("file:" + defaultUserProfilePath);
@@ -110,6 +115,9 @@ public class UserInfoController {
     @PostMapping(value = "/info/update", consumes = "multipart/form-data")
     public String userInfoUpdate(@RequestPart(value = "key", required = false) ProfileUpdateRequestDto profileUpdateRequestDto,
                                  @RequestPart(value = "file", required = false) MultipartFile file,
+                                 @RequestPart(value = "key2", required = false) ProfileCarDetailsRequestDto profileCarDetailsRequestDto,
+                                 @RequestPart(value = "licence", required = false) MultipartFile licence,
+                                 @RequestPart(value = "carImg", required = false) MultipartFile carImg,
                                  Authentication authentication) throws IOException {
 
 //        if (result.hasErrors()) {
@@ -133,6 +141,14 @@ public class UserInfoController {
         } else {
             logger.info("파일 없음");
         }
+
+        // 차량 정보 업데이트
+        logger.debug("운전면허사진 : {}", licence.getOriginalFilename());
+        logger.debug("차색상 : {}", profileCarDetailsRequestDto.getCarColor());
+        logger.debug("차량이미지 : {}", carImg.getOriginalFilename());
+
+        userInfoService.saveCarDetails(currentUsername, profileCarDetailsRequestDto, licence, carImg);
+
 
         return "redirect:/info/info_update";
     }

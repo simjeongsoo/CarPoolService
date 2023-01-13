@@ -44,7 +44,22 @@ public class UserCar {
     /**
      * 연관관계 매핑
      */
-
     @OneToOne(mappedBy = "userCar",fetch = FetchType.LAZY)
     private User user; // 유저테이블과 1:1 양방향 매핑
+
+    /**
+     * 정보수정
+     * dirty checking
+     * */
+    public void updateCarDetails(String licenceOrgNm, String licenceSavedNm, String licenceSavedPath, String carNum, String carType, String carColor, String carImgOrgNm, String carImgSavedNm, String carImgSavedPath) {
+        this.licenceOrgNm = licenceOrgNm;
+        this.licenceSavedNm = licenceSavedNm;
+        this.licenceSavedPath = licenceSavedPath;
+        this.carNum = carNum;
+        this.carType = carType;
+        this.carColor = carColor;
+        this.carImgOrgNm = carImgOrgNm;
+        this.carImgSavedNm = carImgSavedNm;
+        this.carImgSavedPath = carImgSavedPath;
+    }
 }

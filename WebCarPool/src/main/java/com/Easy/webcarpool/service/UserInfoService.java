@@ -1,5 +1,6 @@
 package com.Easy.webcarpool.service;
 
+import com.Easy.webcarpool.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
@@ -27,6 +28,9 @@ public class UserInfoService {
 
     @Value("${profileImg.path}")
     private String fileDir;
+
+    @Value("${carDetail.path}")
+    private String carFileDir;
 
     private final UserRepository userRepository;
     private final UserCarRepository userCarRepository;
@@ -131,6 +135,70 @@ public class UserInfoService {
      */
     public void deleteProfile() {
         // to be added ...
+    }
+
+    @Transactional
+    public Long saveCarDetails(String username, ProfileCarDetailsRequestDto requestDto, MultipartFile licence, MultipartFile carImg) throws IOException {
+        if (licence.isEmpty() && carImg.isEmpty()) {
+            return null;
+        }
+        // 원래 파일 이름 추출
+        String licenceOrigName = licence.getOriginalFilename();
+        String carImgOrigName = carImg.getOriginalFilename();
+
+        // 파일 이름으로 쓸 uuid 생성
+        String licenceUUID = UUID.randomUUID().toString();
+        String carImgUUID = UUID.randomUUID().toString();
+
+        // 확장자 추출(ex : .png)
+        String licenceExtension = licenceOrigName.substring(licenceOrigName.lastIndexOf("."));
+        String carImgExtension = carImgOrigName.substring(carImgOrigName.lastIndexOf("."));
+
+        // uuid와 확장자 결합
+        String licenceSavedName = licenceUUID + licenceExtension;
+        String carImgSavedName = carImgUUID + carImgExtension;
+
+        // 파일을 불러올 때 사용할 파일 경로
+        String licenceSavedPath = carFileDir + licenceSavedName;
+        String carImgSavedPath = carFileDir + carImgSavedName;
+
+
+        // 파일 엔티티 생성
+        UserCar file = UserCar.builder()
+                .licenceOrgNm(licenceOrigName)
+                .licenceSavedNm(licenceSavedName)
+                .licenceSavedPath(licenceSavedPath)
+                .carNum(requestDto.getCarNum())
+                .carType(requestDto.getCarType())
+                .carColor(requestDto.getCarColor())
+                .carImgOrgNm(carImgOrigName)
+                .carImgSavedNm(carImgSavedName)
+                .carImgSavedPath(carImgSavedPath)
+                .build();
+
+        // 실제로 로컬에 uuid를 파일명으로 저장
+        licence.transferTo(new File(licenceSavedPath));
+        carImg.transferTo(new File(carImgSavedPath));
+
+        // 데이터베이스에 파일 정보 저장
+        UserCar userCar = userRepository.findByUsername(username).get().getUserCar();
+
+        userCar.updateCarDetails(
+                file.getLicenceOrgNm(),
+                file.getLicenceSavedNm(),
+                file.getLicenceSavedPath(),
+                file.getCarNum(),
+                file.getCarType(),
+                file.getCarColor(),
+                file.getCarImgOrgNm(),
+                file.getCarImgSavedNm(),
+                file.getCarImgSavedPath()
+        );
+
+//        User savedProfile = userRepository.save(updateProfile);
+        UserCar save = userCarRepository.save(userCar);
+
+        return save.getId();
     }
 
     public List<User> findUsers() {
