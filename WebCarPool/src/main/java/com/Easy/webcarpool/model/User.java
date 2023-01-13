@@ -1,9 +1,6 @@
 package com.Easy.webcarpool.model;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +8,8 @@ import java.util.List;
 
 
 @Entity
-@Data
+//@Data
+@Getter @Setter
 @NoArgsConstructor
 public class User {
     @Id
@@ -33,23 +31,6 @@ public class User {
     private String profileImgSavedNm;       // 프로필 이미지 저장 이름
     private String profileImgSavedPath;     // 프로필 이미지 경로
 
-
-    // Role table과 ManyToMany 매핑
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-
-    private List<Role> roles = new ArrayList<>(); // 사용자 권한 양방향 매핑
-
-    // 양방향 매핑, board 클래스 ManyToOne에서 사용한 변수명 "user"
-//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //쓸데없는 쿼리 안불러오는 LAZY
-//    @JsonIgnore
-    private List<Board> boards = new ArrayList<>();
-
     @Builder
     public User(String realname, String username, String email, String address, boolean gender, String birth, String introduce, String profileImgSavedPath, String profileImgOrgNm, String profileImgSavedNm) {
         this.realname = realname;
@@ -63,6 +44,31 @@ public class User {
         this.profileImgOrgNm = profileImgOrgNm;
         this.profileImgSavedNm = profileImgSavedNm;
     }
+
+    /**
+     * 연관관계 매핑
+     * */
+
+    // Role table과 ManyToMany 매핑
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+
+    private List<Role> roles = new ArrayList<>(); // 사용자 권한 양방향 매핑
+    // 양방향 매핑, board 클래스 ManyToOne에서 사용한 변수명 "user"
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //쓸데없는 쿼리 안불러오는 LAZY
+//    @JsonIgnore
+    private List<Board> boards = new ArrayList<>();
+
+    @OneToOne
+    private UserCar userCar; // 유저차량정보와 1:1 양방향 매핑
+
+
 
     /**
      * 정보수정
@@ -80,5 +86,10 @@ public class User {
         this.profileImgOrgNm = profileImgOrgNm;
         this.profileImgSavedNm = profileImgSavedNm;
         this.profileImgSavedPath = profileImgSavedPath;
+    }
+
+    public void updateUserCar(String username, UserCar userCar) {
+        this.username = username;
+        this.userCar = userCar;
     }
 }
