@@ -38,15 +38,15 @@ public class ProfileCarDetailsResponseDto {
     public ProfileCarDetailsResponseDto toDto(UserCar entity) {
         // entity to dto
         return ProfileCarDetailsResponseDto.builder()
-//                .licenceOrgNm(entity.getLicenceOrgNm())
-//                .licenceSavedNm(entity.getLicenceSavedNm())
-//                .licenceSavedPath(entity.getLicenceSavedPath())
+                .licenceOrgNm(entity.getLicenceOrgNm())
+                .licenceSavedNm(entity.getLicenceSavedNm())
+                .licenceSavedPath(entity.getLicenceSavedPath())
                 .carNum(entity.getCarNum())
                 .carType(entity.getCarType())
                 .carColor(entity.getCarColor())
-//                .carImgOrgNm(entity.getCarImgOrgNm())
-//                .carImgSavedNm(entity.getCarImgSavedNm())
-//                .carImgSavedPath(entity.getCarImgSavedPath())
+                .carImgOrgNm(entity.getCarImgOrgNm())
+                .carImgSavedNm(entity.getCarImgSavedNm())
+                .carImgSavedPath(entity.getCarImgSavedPath())
                 .build();
     }
 

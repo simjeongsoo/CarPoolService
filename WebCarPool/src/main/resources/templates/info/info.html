@@ -127,8 +127,9 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">운전면허</span>
                 </div>
-                <span type="text" class="form-control" id="license" readonly></span>
-
+<!--                <span type="text" class="form-control" id="license" readonly></span>-->
+                <span type="text" class="form-control" id="license" th:text="${carDetails.getCarImgOrgNm()}" readonly></span>
+<!--                <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="user upload licence Img"/>-->
               </div>
             </div>
 
@@ -175,7 +176,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량 이미지</span>
                 </div>
-                <span type="text" class="form-control" id="carImg" readonly></span>
+<!--                <span type="text" class="form-control" id="carImg" readonly></span>-->
+                <span type="text" class="form-control" id="carImg" th:text="${carDetails.getCarImgOrgNm()}" readonly></span>
               </div>
             </div>
 <!--          <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">저장</button>-->
