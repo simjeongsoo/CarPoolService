@@ -1,5 +1,6 @@
 package com.Easy.webcarpool.controller;
 
+import ch.qos.logback.core.joran.action.IADataForComplexProperty;
 import com.Easy.webcarpool.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
@@ -22,7 +23,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -53,11 +56,6 @@ public class UserInfoController {
 
         // 차량 정보 조회
         ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
-
-        logger.debug("차량색상 : {}", userCarDetails.getCarColor());
-        logger.debug("차종 : {}", userCarDetails.getCarType());
-        logger.debug("차량번호 : {}", userCarDetails.getCarNum());
-
         model.addAttribute("carDetails", userCarDetails);
 
         return "info/info";
@@ -102,11 +100,6 @@ public class UserInfoController {
 
         // 차량 정보 조회
         ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
-
-        logger.debug("차량색상 : {}", userCarDetails.getCarColor());
-        logger.debug("차종 : {}", userCarDetails.getCarType());
-        logger.debug("차량번호 : {}", userCarDetails.getCarNum());
-
         model.addAttribute("carDetails", userCarDetails);
 
         return "/info/info_update";
@@ -153,10 +146,36 @@ public class UserInfoController {
         return "redirect:/info/info_update";
     }
 
+    // 운전면허,차량 이미지 출력 api
+    @GetMapping("/info/{imgchoice}/{username}")
+    @ResponseBody
+    public UrlResource getCarDetailsImage(
+            @PathVariable(value = "imgchoice", required = false) String imgChoice,
+            @PathVariable(value = "username",required = false) String username) throws IOException{
+
+        String defaultCarDetailsPath = "/Users/simjeongsu/Documents/CarPoolService/images/cardetails/default.png";
+
+        try {
+            Optional<User> userProfileImg = userInfoService.getUserProfileImg(username);
+            String licenceSavedPath = userProfileImg.get().getUserCar().getLicenceSavedPath();
+            String carImgSavedPath = userProfileImg.get().getUserCar().getCarImgSavedPath();
+
+            if (licenceSavedPath != null && carImgSavedPath != null) {
+                if (Objects.equals(imgChoice, "licence")) {
+                    return new UrlResource("file:" + licenceSavedPath);
+                } else if (Objects.equals(imgChoice, "carimg")) {
+                    return new UrlResource("file:" + carImgSavedPath);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NoSuchElementException e) {
+
+        }
+
+        return new UrlResource("file:" + defaultCarDetailsPath);
+    }
+
 //======================================================================================================================
-
-    /**
-     * 차량등록
-     * */
-
 }
