@@ -30,7 +30,7 @@
   <div class="py-5 text-center">
     <h2>내정보</h2>
     <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="user upload Img"/>
-    <p class="lead">차량 등록을 해야 애플리케이션 기능 사용 가능</p>
+    <p class="lead">차량 등록시 애플리케이션 기능 사용 가능</p>
   </div>
 
   <div class="row">
@@ -75,11 +75,6 @@
             </div>
           </div>
           </div>
-<!--        </form>-->
-        <!--form, 조회 end-->
-
-        <!--form, post-->
-<!--        <form class="form-signin" th:action="@{/info}" method="post" th:object="${profileUpdate}">-->
 
           <!--주소, readonly-->
           <div class="mb-3">
@@ -120,19 +115,6 @@
 
           <h4 class="mb-4">차량정보</h4>
 
-            <!--면허등록, readonly-->
-            <div class="mb-3">
-              <label for="license"><span class="text-muted"></span></label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">운전면허</span>
-                </div>
-<!--                <span type="text" class="form-control" id="license" readonly></span>-->
-                <span type="text" class="form-control" id="license" th:text="${carDetails.getCarImgOrgNm()}" readonly></span>
-<!--                <img class="bd-placeholder-img rounded-circle" width="140" height="140" th:src="|/info/${profile.getUsername()}|"  role="img" alt="user upload licence Img"/>-->
-              </div>
-            </div>
-
             <!--차량번호, readonly-->
             <div class="mb-3">
               <label for="carNumber"><span class="text-muted"></span></label>
@@ -140,7 +122,6 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량번호</span>
                 </div>
-<!--                <span type="text" class="form-control" id="carNumber"  readonly></span>-->
                 <span type="text" class="form-control" id="carNumber" th:text="${carDetails.getCarNum()}" readonly></span>
               </div>
             </div>
@@ -152,7 +133,6 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">차종등록</span>
                 </div>
-<!--                <span type="text" class="form-control" id="carType" readonly></span>-->
                 <span type="text" class="form-control" id="carType" th:text="${carDetails.getCarType()}" readonly></span>
               </div>
             </div>
@@ -164,10 +144,21 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량색상</span>
                 </div>
-<!--                <span type="text" class="form-control" id="carColor" readonly></span>-->
                 <span type="text" class="form-control" id="carColor" th:text="${carDetails.getCarColor()}" readonly></span>
               </div>
             </div>
+
+          <!--면허등록, readonly-->
+          <div class="mb-3">
+            <label for="license"><span class="text-muted"></span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">운전면허</span>
+              </div>
+              <span type="text" class="form-control" id="license" th:text="${carDetails.getCarImgOrgNm()}" readonly></span>
+            </div>
+          </div>
+          <img class="bd-placeholder-img" width="200" height="140" th:src="|/info/licence/${profile.getUsername()}|"  role="img" alt="user upload licence Img"/>
 
             <!--차량 이미지, readonly-->
             <div class="mb-3">
@@ -176,11 +167,11 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">차량 이미지</span>
                 </div>
-<!--                <span type="text" class="form-control" id="carImg" readonly></span>-->
                 <span type="text" class="form-control" id="carImg" th:text="${carDetails.getCarImgOrgNm()}" readonly></span>
               </div>
             </div>
-<!--          <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">저장</button>-->
+          <img class="bd-placeholder-img" width="200" height="140" th:src="|/info/carimg/${profile.getUsername()}|"  role="img" alt="user upload car Img"/>
+
         </form>
       </div>
     </div>
@@ -195,7 +186,14 @@
     </footer>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script>
+    window.jQuery || document.write(
+            '<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js">'
+            +
+            '<\/script>'
+    )
+  </script>
+  <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
