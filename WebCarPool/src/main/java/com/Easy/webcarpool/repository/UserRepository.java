@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     @Transactional
-    @Modifying
+    @Modifying // Modifying queries can only use void or int/Integer as return type!
     @Query("update User set profileImgOrgNm =null ,profileImgSavedNm =null ,profileImgSavedPath =null where username=:username")
-    boolean deleteImageDetailsByUsername(@Param("username") String username); // image 데이터 제거
+    void deleteImageDetailsByUsername(@Param("username") String username); // image 데이터 제거
 }

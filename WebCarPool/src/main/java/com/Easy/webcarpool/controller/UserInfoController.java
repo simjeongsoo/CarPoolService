@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -66,7 +68,7 @@ public class UserInfoController {
     @ResponseBody
     public UrlResource getProfileImage(@PathVariable(value = "username",required = false) String username) throws IOException{
 
-        String defaultUserProfilePath = "/Users/simjeongsu/Documents/CarPoolService/images/user.png";
+        String defaultUserProfilePath = "/Users/simjeongsu/Documents/CarPoolService/images/profiledefault.png";
 
         try {
             Optional<User> userProfileImg = userInfoService.getUserProfileImg(username);
@@ -128,19 +130,16 @@ public class UserInfoController {
 
         // 프로필 이미지 업데이트시 실행
         if (file != null) {
-            logger.info("getName : {}", file.getName());
-            logger.info("getOriginalFilename : {}", file.getOriginalFilename());
             userInfoService.saveProfileImg(file, currentUsername);
         } else {
             logger.info("파일 없음");
         }
 
-        // 차량 정보 업데이트
-        logger.debug("운전면허사진 : {}", licence.getOriginalFilename());
-        logger.debug("차색상 : {}", profileCarDetailsRequestDto.getCarColor());
-        logger.debug("차량이미지 : {}", carImg.getOriginalFilename());
-
-        userInfoService.saveCarDetails(currentUsername, profileCarDetailsRequestDto, licence, carImg);
+        if (licence.isEmpty() || carImg.isEmpty()) {
+            logger.info("파일 없음");
+        } else {
+            userInfoService.saveCarDetails(currentUsername, profileCarDetailsRequestDto, licence, carImg);
+        }
 
 
         return "redirect:/info/info_update";
@@ -178,4 +177,13 @@ public class UserInfoController {
     }
 
 //======================================================================================================================
+
+    /**
+     * 업로드 파일 삭제
+     */
+    @GetMapping("info/delete/{username}")
+    public ResponseEntity<Boolean> removeUserInfoImg(@PathVariable("username") String username) {
+        userInfoService.deleteImgFile(username);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

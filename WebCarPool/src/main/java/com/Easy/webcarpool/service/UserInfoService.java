@@ -133,10 +133,29 @@ public class UserInfoService {
     /**
      * 프로필 이미지 삭제
      */
-    public void deleteProfile() {
-        // to be added ...
+    @Transactional
+    public void deleteImgFile(String username) {
+
+        String profileImgSavedNm = userRepository.findByUsername(username).get().getProfileImgSavedNm(); // 저장이름
+        String file = fileDir + profileImgSavedNm; // 저장경로 + 저장이름
+        // 원본 파일 삭제
+        try {
+            // 파일 삭제
+            File deleteFile = new File(file);
+            if (deleteFile.exists()) deleteFile.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // DB 데이터 초기화
+        userRepository.deleteImageDetailsByUsername(username);
+
+
     }
 
+    /**
+     * 운전면허, 차량사진 저장
+     */
     @Transactional
     public Long saveCarDetails(String username, ProfileCarDetailsRequestDto requestDto, MultipartFile licence, MultipartFile carImg) throws IOException {
         if (licence.isEmpty() && carImg.isEmpty()) {
