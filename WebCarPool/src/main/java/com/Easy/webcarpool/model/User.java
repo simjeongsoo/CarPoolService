@@ -65,7 +65,8 @@ public class User {
 //    @JsonIgnore
     private List<Board> boards = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private UserCar userCar; // 유저차량정보와 1:1 양방향 매핑
 
 
