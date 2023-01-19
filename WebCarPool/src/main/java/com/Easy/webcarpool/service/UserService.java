@@ -1,18 +1,14 @@
 package com.Easy.webcarpool.service;
 
-import com.Easy.webcarpool.dto.ProfileResponseDto;
-import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.dto.SignUpRequestForm;
 import com.Easy.webcarpool.model.Role;
 import com.Easy.webcarpool.model.User;
+import com.Easy.webcarpool.model.UserCar;
 import com.Easy.webcarpool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 //user 관련 비즈니스 로직 서비스 클래스
 @Service
@@ -31,9 +27,11 @@ public class UserService {
     public User join(SignUpRequestForm form){
 
         User user = new User();
+        UserCar userCar = new UserCar();
         user.setRealname(form.getRealname()); // 실명 설정
         user.setUsername(form.getUsername()); // 아이디 설정
-        user.setEmail(form.getEmail());        // 이메일 설정
+        user.setEmail(form.getEmail());       // 이메일 설정
+        user.setUserCar(userCar);             // 차량정보 설정
 
         String encodedPassword = passwordEncoder.encode(form.getPassword()); //password 암호화
         user.setPassword(encodedPassword); // 비밀번호 설정
