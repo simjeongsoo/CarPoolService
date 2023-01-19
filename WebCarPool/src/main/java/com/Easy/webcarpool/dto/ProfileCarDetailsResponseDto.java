@@ -1,10 +1,13 @@
 package com.Easy.webcarpool.dto;
 
 import com.Easy.webcarpool.model.UserCar;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -35,9 +38,9 @@ public class ProfileCarDetailsResponseDto {
         this.carImgSavedPath = carImgSavedPath;
     }
 
-    public ProfileCarDetailsResponseDto toDto(UserCar entity) {
+    public Optional<ProfileCarDetailsResponseDto> toDto(UserCar entity) {
         // entity to dto
-        return ProfileCarDetailsResponseDto.builder()
+        return Optional.ofNullable(ProfileCarDetailsResponseDto.builder()
                 .licenceOrgNm(entity.getLicenceOrgNm())
                 .licenceSavedNm(entity.getLicenceSavedNm())
                 .licenceSavedPath(entity.getLicenceSavedPath())
@@ -47,7 +50,7 @@ public class ProfileCarDetailsResponseDto {
                 .carImgOrgNm(entity.getCarImgOrgNm())
                 .carImgSavedNm(entity.getCarImgSavedNm())
                 .carImgSavedPath(entity.getCarImgSavedPath())
-                .build();
+                .build());
     }
 
 }
