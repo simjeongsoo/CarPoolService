@@ -1,6 +1,5 @@
 package com.Easy.webcarpool.controller;
 
-import ch.qos.logback.core.joran.action.IADataForComplexProperty;
 import com.Easy.webcarpool.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
@@ -21,15 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Controller
 @PropertySource("classpath:/application.properties")
@@ -57,7 +52,7 @@ public class UserInfoController {
         model.addAttribute("profile", profileResponseDto);
 
         // 차량 정보 조회
-        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
+        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername).get();
         model.addAttribute("carDetails", userCarDetails);
 
         return "info/info";
@@ -101,7 +96,7 @@ public class UserInfoController {
         model.addAttribute("profile", profileResponseDto);
 
         // 차량 정보 조회
-        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername);
+        ProfileCarDetailsResponseDto userCarDetails = userInfoService.getUserCarDetails(currentUsername).get();
         model.addAttribute("carDetails", userCarDetails);
 
         return "/info/info_update";
