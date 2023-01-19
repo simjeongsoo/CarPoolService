@@ -1,15 +1,16 @@
 package com.Easy.webcarpool.model;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@DynamicInsert // insert시 null 인 필드값 제외(=@PrePersist)
 public class UserCar {
 
     @Id
