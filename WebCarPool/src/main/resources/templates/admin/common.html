@@ -26,35 +26,20 @@
             <li class="nav-item" th:classappend="${admin} == 'adminHome'? 'active'">
                 <a class="nav-link" href="#" th:href="@{/admin/home}">관리자홈<span class="sr-only" th:if="${admin} == 'adminHome'">(current)</span></a>
             </li>
+            <li class="nav-item" th:classappend="${admin} == 'adminManagement'? 'active'">
+                <a class="nav-link" href="#" th:href="@{/admin/management}">사용자관리<span class="sr-only" th:if="${admin} == 'adminManagement'">(current)</span></a>
+            </li>
+            <li class="nav-item" th:classappend="${admin} == 'adminUsage'? 'active'">
+                <a class="nav-link" href="#" th:href="@{/admin/usage}">사용현황<span class="sr-only" th:if="${admin} == 'adminUsage'">(current)</span></a>
+            </li>
             <li class="nav-item" th:classappend="${admin} == 'adminChat'? 'active'">
-                <a class="nav-link" href="#" th:href="@{/admin/chat}">채팅<span class="sr-only" th:if="${admin} == 'adminChat'">(current)</span></a>
+                <a class="nav-link" href="#" th:href="@{/admin/chat}">고객센터<span class="sr-only" th:if="${admin} == 'adminChat'">(current)</span></a>
             </li>
-
-            <!-- <li class="nav-item" th:classappend="${menu} == 'chat'? 'active'">
-                <a class="nav-link" href="#" th:href="@{/chat}">정보<span class="sr-only" th:if="${menu} == 'chat'">(current)</span></a>
-            </li>
-            <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
-                <a class="nav-link" href="#">??<span class="sr-only" th:if="${menu} == 'info'">(current)</span></a>
-            </li> -->
-        
-
         </ul>
-
-        <!-- <a class="btn btn-secondary my-2 mr-2 my-sm-0" th:href="@{/account/login}"
-           sec:authorize="isAnonymous()">로그인</a>
-        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"
-           sec:authorize="isAnonymous()">회원가입</a> -->
-
 
         <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
             <span class="text-white" sec:authentication="name">사용자</span>
             <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
-
-            <!-- <a class="btn btn-secondary my-2 mx-2 my-sm-0" th:href="@{/admin/home}"
-               sec:authorize="hasRole('ROLE_ADMIN')">
-                관리자 페이지
-            </a> -->
-
             <button class="btn btn-secondary my-2 my-sm-0" type="submit" >로그아웃</button>
         </form>
 
