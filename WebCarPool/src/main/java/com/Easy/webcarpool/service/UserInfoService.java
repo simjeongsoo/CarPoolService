@@ -9,7 +9,6 @@ import com.Easy.webcarpool.model.UserCar;
 import com.Easy.webcarpool.repository.UserCarRepository;
 import com.Easy.webcarpool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.monitor.FileEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,9 +46,8 @@ public class UserInfoService {
     }
 
     // 차량조회
-    public ProfileCarDetailsResponseDto getUserCarDetails(String username) {
+    public Optional<ProfileCarDetailsResponseDto> getUserCarDetails(String username) {
 
-//        Long userId = userRepository.findByUsername(username).getId();
         Long userId = userRepository.findByUsername(username).get().getId();
         UserCar userCarDetails = userCarRepository.findByUser_Id(userId);
 
@@ -218,9 +215,5 @@ public class UserInfoService {
         UserCar save = userCarRepository.save(userCar);
 
         return save.getId();
-    }
-
-    public List<User> findUsers() {
-        return userRepository.findAll();
     }
 }
