@@ -1,5 +1,6 @@
 package com.Easy.webcarpool.controller;
 
+import com.Easy.webcarpool.model.Role;
 import com.Easy.webcarpool.model.User;
 import com.Easy.webcarpool.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,12 @@ public class AdminController {
 
         List<User> users = adminService.findUsers();
         model.addAttribute("users", users);
+
+        for (User user : users) {
+            List<Role> roles = user.getRoles();
+            model.addAttribute("roles", roles);
+        }
+
 
         return "admin/management";
     }
