@@ -56,7 +56,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-
     private List<Role> roles = new ArrayList<>(); // 사용자 권한 양방향 매핑
     // 양방향 매핑, board 클래스 ManyToOne에서 사용한 변수명 "user"
 //    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
