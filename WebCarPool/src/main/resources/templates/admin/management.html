@@ -26,16 +26,16 @@
         <table class="table table-hover">
           <thead class="thead-dark">
           <tr>
-            <th>#</th><th>ID</th><th>name</th>
+            <th>#</th><th>ID</th><th>name</th><th>role</th>
           </tr>
           </thead>
 
           <tbody>
-          <tr th:each="user: ${users}">
+          <tr th:each="user: ${userList}">
             <td th:text="${user.getId()}">#</td>
             <td th:text="${user.getUsername()}">ID</td>
             <td th:text="${user.getRealname()}">name</td>
-
+            <td th:text="${user.getRoles().get()}">role</td>
           </tr>
           </tbody>
         </table>
@@ -46,10 +46,10 @@
           </thead>
           <tbody>
 
-          <tr th:each="role: ${roles}">
-            <td th:text="${role.getId()}">#</td>
-            <td th:text="${role.getName()}">ID</td>
-            <td th:text="${role.getUsers().get(0)}">name</td>
+          <tr th:each="role: ${roleMap}">
+            <td th:text="${role.getKey()}">key</td>
+            <td th:text="${role.getValue()}">value</td>
+<!--            <td th:text="${}">name</td>-->
 
           </tr>
 
