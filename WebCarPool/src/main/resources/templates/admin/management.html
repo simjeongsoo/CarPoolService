@@ -41,66 +41,41 @@
             <td th:text="${user.getId()}">#</td>
             <td th:text="${user.getUsername()}">ID</td>
             <td th:text="${user.getRealname()}">name</td>
-<!--            <td th:text="${user.getRoles().get()}">role</td>-->
             <td>
-<!--              <button type="button" class=" btn btn-primary" id="btn-modal">보기</button>-->
 
-<!--                <a class="mypageModal user_id modal fade" data-toggle="modal" data-target="#myModal" th:value="${user.getId()}">상세보기</a>-->
+                <!-- Modal Button -->
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" th:attr="data-id=${user.getId()}">상세보기</button>
 
-<!--              <button class="myModal btn btn-primary" href="#" data-toggle="modal" data-target="#myModal" th:value="${user.getId()}">상세보기</button>-->
-
-<!--              <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false">-->
-<!--                <div class="modal-dialog modal-xl modal-dialog-centered">-->
-<!--                  <div class="modal-content">-->
-
-<!--                    &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--                    <div class="modal-header">-->
-<!--                      <h4 class="modal-title" th:text="|${user.getRealname()}의 정보|"></h4>-->
-<!--                      <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                    <div class="modal-body">-->
-<!--                        <p id="username">name</p>-->
-<!--                      <p th:text="|사용자 아이디 : ${user.getUsername()}|"></p>-->
-<!--                      <p th:text="|사용자 이름 : ${user.getRealname()}|"></p>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--                    <div class="modal-footer">-->
-<!--                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                    </div>-->
-
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-
-
-<!--                <button id="modalBtn" type="button" class="btn btn-primary" onClick="openImageModal()" th:attr="data-el_id=${user.getId()}">상세 보기</button>-->
-                <button class="btn btn-primary" th:attr="onclick=|openModal('${user.getId()}')|">상세정보</button>
-
-                <!-- 모달창 -->
-                <div id="userModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                <!-- Modal Content -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-header modal-header-sm">
-                                <h6 class="modal-title">사진/동영상 보기</h6>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Details</h4>
                             </div>
-                            <div class="modal-body text-center">
+                            <div class="modal-body">
 
-                                    <p id="userid"></p>
-                                    <p id="username"></p>
-                                    <p id="useremail"></p>
-                                    <p id="useraddr"></p>
-                                    <p id="userbirth"></p>
-                                    <p id="usergen"></p>
+                                <p id="realname"></p>
+                                <br>
+                                <p id="username"></p>
+                                <br>
+                                <p id="useremail"></p>
+                                <br>
+                                <p id="useraddr"></p>
+                                <br>
+                                <p id="userbirth"></p>
+                                <br>
+                                <p id="usergen"></p>
 
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- Modal Content End-->
 
             </td>
 
@@ -120,7 +95,6 @@
             <td th:text="${admin.getId()}"></td>
             <td th:text="${admin.getUsername()}"></td>
             <td th:text="${admin.getRealname()}"></td>
-<!--            <td th:text="${}">name</td>-->
           </tr>
           </tbody>
 
@@ -138,49 +112,36 @@
 <!--모달-->
 </html>
 <script type="text/javascript">
-    // 이미지 출력 모달창 오픈
-    function openModal(id) {
-        // $('#info').empty();
 
-        let result = document.getElementById('userid');
+    // modal open, get user data with ajax
+    $('#myModal').on('show.bs.modal', function (event) {
 
-        // let id = $('#modalBtn').attr('el_id');
-        // let id = $("#modalBtn").data("el_id");
-        // let id = $(this).attr('value');
-        console.log(id);
+        let button = $(event.relatedTarget) // Button that triggered the modal
+
+        let id = button.data('id') // Extract info from data-* attributes
+        console.log("userId : " + id);
 
         $.ajax({
-            type: "get",
+            type: "GET",
             url: "/admin/getUserInfo/" + id,
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-
-                $("#userid").replaceWith("아이디 : "+data.username+ '<br>');
-                $("#username").replaceWith("이름 : "+data.realname+ '<br>');
-                $("#useremail").replaceWith("이메일 : "+data.email+ '<br>');
-                $("#useraddr").replaceWith("주소 : "+data.address+ '<br>');
-                $("#userbirth").replaceWith("생년월일"+data.birth+ '<br>');
+            success: function(data) {
+                $("#myModalLabel").text(data.realname+"의 상세정보");
+                $("#realname").text("사용자 이름 : "+data.realname);
+                $("#username").text("사용자 아이디 : "+data.username);
+                $("#useremail").text("이메일 : "+data.email);
+                $("#useraddr").text("주소 : "+data.address);
+                $("#userbirth").text("생년월일 : "+data.birth);
                 if (data.gender == "true") {
-                    $("#usergen").replaceWith("성별 : 여성" + '<br>');
+                    $("#usergen").text("성별 : 여성");
                 } else {
-                    $("#usergen").replaceWith("성별 : 남성" + '<br>');
+                    $("#usergen").text("성별 : 남성");
                 }
 
-                $('#userModal').modal();
-
             }, error: function (status, error) {
-                console.log('에러발생!!');
-
+                console.log('error occurred..');
                 console.log(status, error);
             }
-
         });
+    });
 
-
-        // let img = document.createElement('img');
-        // img.setAttribute('src', 'images/image.jpg');
-        // img.setAttribute('class', 'img-fluid');
-
-    }
 </script>
