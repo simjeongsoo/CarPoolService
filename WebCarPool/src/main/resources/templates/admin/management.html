@@ -29,14 +29,14 @@
       <div class="col-md-12">
 
         <h3>유저 리스트</h3>
-        <table class="table table-hover">
+        <table class="table table-hover" id="usertable">
           <thead class="thead-dark">
           <tr>
             <th>#</th><th>ID</th><th>name</th><th>details</th><th>관리자지정</th>
           </tr>
           </thead>
 
-          <tbody id="tbody1">
+          <tbody>
           <tr th:each="user: ${userList}">
             <td th:text="${user.getId()}">#</td>
             <td th:text="${user.getUsername()}">ID</td>
@@ -79,7 +79,7 @@
             </td>
 
             <td>
-                <button class="btn btn-primary" id="addAdminBtn" type="button" th:data-id="${user.getId()}">추가</button>
+                <button class="btn btn-primary add-admin" id="addAdminBtn" type="button" th:data-userid="${user.getId()}">추가</button>
             </td>
 
           </tr>
@@ -87,7 +87,7 @@
         </table>
 
         <h3>관리자 리스트</h3>
-        <table class="table table-hover">
+        <table class="table table-hover" id="admintable">
 
           <thead class="thead-dark">
           <th>#</th><th>ID</th><th>name</th><th>details</th><th>관리자지정</th>
@@ -135,7 +135,7 @@
             </td>
 
               <td>
-                  <button class="btn btn-primary" id="removeAdminBtn" type="button" th:data-adminid="${admin.getId()}">삭제</button>
+                  <button class="btn btn-primary remove-admin" id="removeAdminBtn" type="button" th:data-adminid="${admin.getId()}">삭제</button>
               </td>
           </tr>
           </tbody>
@@ -154,6 +154,23 @@
 <!--모달-->
 </html>
 <script type="text/javascript">
+
+    // $.ajax({
+    //     url: '/admin/userList',
+    //     type: 'GET',
+    //     success: function(data) {
+    //
+    //         $("#usertable tbody").empty();
+    //
+    //         for (var i = 0; i < data.length; i++) {
+    //             $("#usertable tbody").append("<tr>" +
+    //                 "<td>" + data[i].id + "</td>" +
+    //                 "<td>" + data[i].realname + "</td>" +
+    //                 "<td>" + data[i].username + "</td>" +
+    //                 "</tr>");
+    //         }
+    //     }
+    // });
 
     // user modal open, get user data with ajax
     $('#myModal').on('show.bs.modal', function (event) {
@@ -217,12 +234,15 @@
         });
     });
 
-
+    // 관리자 지정 ajax
     $(document).ready(function() {
-        $('#addAdminBtn').click(function(event) {
 
-            let button = $(event.relatedTarget); // Button that triggered the event
-            let id = $(this).data('id'); // Extract info from data-* attributes
+        // class selector(.) 를 사용하여 행별 id 추출
+        $('.add-admin').click(function(event) {
+
+            // let button = $(event.relatedTarget); // Button that triggered the event
+            let id = $(this).data('userid'); // Extract info from data-* attributes
+
             console.log("userid : " + id);
 
             $.ajax({
@@ -245,10 +265,12 @@
             });
         });
 
-        $('#removeAdminBtn').click(function(event) {
+
+        $('.remove-admin').click(function(event) {
 
             // let button = $(event.relatedTarget); // Button that triggered the event
             let id = $(this).data('adminid'); // Extract info from data-* attributes
+
             console.log("adminid : " + id);
 
             $.ajax({
@@ -272,6 +294,7 @@
         });
 
     });
+
 
 
 
