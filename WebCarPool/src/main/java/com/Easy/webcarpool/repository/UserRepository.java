@@ -17,12 +17,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = {"boards", "userCar"})
     List<User> findAll();
 
-//    User findByUsername(String username);
 
     Optional<User> findByUsername(String username);
 
-    @Transactional
     @Modifying // Modifying queries can only use void or int/Integer as return type!
+    @Transactional
     @Query("update User set profileImgOrgNm =null ,profileImgSavedNm =null ,profileImgSavedPath =null where username=:username")
     void deleteImageDetailsByUsername(@Param("username") String username); // image 데이터 제거
 }
