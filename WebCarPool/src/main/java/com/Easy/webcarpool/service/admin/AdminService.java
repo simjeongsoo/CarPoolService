@@ -135,10 +135,13 @@ public class AdminService {
         Role role = roleRepository.findById(2L).orElse(null);
 
         if (user != null && role != null) {
-            user.getRoles().remove(role);
-            role.getUsers().remove(user);
+            boolean removeUser = user.getRoles().remove(role);
+            boolean removeRole = role.getUsers().remove(user);
             userRepository.save(user);
             roleRepository.save(role);
+            if (removeRole && removeUser) {
+                result = true;
+            }
         }
 
         return result;
