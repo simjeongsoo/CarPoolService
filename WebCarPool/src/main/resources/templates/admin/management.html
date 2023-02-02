@@ -86,6 +86,13 @@
           </tbody>
         </table>
 
+          <br>
+          <br>
+          <hr>
+          <br>
+          <br>
+
+
         <h3>관리자 리스트</h3>
         <table class="table table-hover" id="admintable">
 
@@ -154,23 +161,6 @@
 <!--모달-->
 </html>
 <script type="text/javascript">
-
-    // $.ajax({
-    //     url: '/admin/userList',
-    //     type: 'GET',
-    //     success: function(data) {
-    //
-    //         $("#usertable tbody").empty();
-    //
-    //         for (var i = 0; i < data.length; i++) {
-    //             $("#usertable tbody").append("<tr>" +
-    //                 "<td>" + data[i].id + "</td>" +
-    //                 "<td>" + data[i].realname + "</td>" +
-    //                 "<td>" + data[i].username + "</td>" +
-    //                 "</tr>");
-    //         }
-    //     }
-    // });
 
     // user modal open, get user data with ajax
     $('#myModal').on('show.bs.modal', function (event) {
@@ -242,7 +232,6 @@
 
             // let button = $(event.relatedTarget); // Button that triggered the event
             let id = $(this).data('userid'); // Extract info from data-* attributes
-
             console.log("userid : " + id);
 
             $.ajax({
@@ -250,7 +239,6 @@
                 type: 'POST',
                 data: {id: id},
                 success: function (response) {
-                    // Handle the success response from Spring
                     if(response) {
                         console.log("Operation successful");
                         console.log(response);
@@ -268,7 +256,6 @@
 
         $('.remove-admin').click(function(event) {
 
-            // let button = $(event.relatedTarget); // Button that triggered the event
             let id = $(this).data('adminid'); // Extract info from data-* attributes
 
             console.log("adminid : " + id);
@@ -294,8 +281,5 @@
         });
 
     });
-
-
-
 
 </script>
