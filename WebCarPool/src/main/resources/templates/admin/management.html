@@ -22,17 +22,17 @@
 
 </main>
 
-<div class="row">
+<div class="col-md-12">
   <div class="container row text-center" style="float: none; margin: auto;">
-    <div class="col-md-5" style="float:none;margin: auto">
+    <div class="col-md-12" style="float:none;margin: auto">
 
-      <div class="row">
+      <div class="col-md-12">
 
         <h3>유저 리스트</h3>
         <table class="table table-hover">
           <thead class="thead-dark">
           <tr>
-            <th>#</th><th>ID</th><th>name</th><th>details</th>
+            <th>#</th><th>ID</th><th>name</th><th>details</th><th>관리자지정</th>
           </tr>
           </thead>
 
@@ -76,7 +76,10 @@
                     </div>
                 </div>
                 <!-- Modal Content End-->
+            </td>
 
+            <td>
+                <button class="btn btn-primary" id="addAdminBtn" type="button" th:data-id="${user.getId()}">추가</button>
             </td>
 
           </tr>
@@ -87,7 +90,7 @@
         <table class="table table-hover">
 
           <thead class="thead-dark">
-          <th>#</th><th>ID</th><th>name</th><th>details</th>
+          <th>#</th><th>ID</th><th>name</th><th>details</th><th>관리자지정</th>
           </thead>
 
           <tbody>
@@ -96,8 +99,44 @@
             <td th:text="${admin.getUsername()}"></td>
             <td th:text="${admin.getRealname()}"></td>
             <td>
-                <button class="btn btn-primary">상세보기</button>
+                <!-- Modal Button -->
+                <button class="btn btn-primary" data-toggle="modal" data-target="#adminModal" th:attr="data-id=${admin.getId()}">상세보기</button>
+
+                <!-- Modal Content -->
+                <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="adminModalLabel">Details</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <p id="admin_realname"></p>
+                                <br>
+                                <p id="admin_username"></p>
+                                <br>
+                                <p id="admin_useremail"></p>
+                                <br>
+                                <p id="admin_useraddr"></p>
+                                <br>
+                                <p id="admin_userbirth"></p>
+                                <br>
+                                <p id="admin_usergen"></p>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Content End-->
             </td>
+
+              <td>
+                  <button class="btn btn-primary" id="removeAdminBtn" type="button" th:data-adminid="${admin.getId()}">삭제</button>
+              </td>
           </tr>
           </tbody>
 
@@ -116,7 +155,7 @@
 </html>
 <script type="text/javascript">
 
-    // modal open, get user data with ajax
+    // user modal open, get user data with ajax
     $('#myModal').on('show.bs.modal', function (event) {
 
         let button = $(event.relatedTarget) // Button that triggered the modal
@@ -129,8 +168,8 @@
             url: "/admin/getUserInfo/" + id,
             success: function(data) {
                 $("#myModalLabel").text(data.realname+"의 상세정보");
-                $("#realname").text("사용자 이름 : "+data.realname);
-                $("#username").text("사용자 아이디 : "+data.username);
+                $("#realname").text("이름 : "+data.realname);
+                $("#username").text("아이디 : "+data.username);
                 $("#useremail").text("이메일 : "+data.email);
                 $("#useraddr").text("주소 : "+data.address);
                 $("#userbirth").text("생년월일 : "+data.birth);
@@ -146,5 +185,94 @@
             }
         });
     });
+
+    // admin modal open, get user data with ajax
+    $('#adminModal').on('show.bs.modal', function (event) {
+
+        let button = $(event.relatedTarget) // Button that triggered the modal
+
+        let id = button.data('id') // Extract info from data-* attributes
+        console.log("userId : " + id);
+
+        $.ajax({
+            type: "GET",
+            url: "/admin/getUserInfo/" + id,
+            success: function(data) {
+                $("#adminModalLabel").text(data.realname+"의 상세정보");
+                $("#admin_realname").text("이름 : "+data.realname);
+                $("#admin_username").text("아이디 : "+data.username);
+                $("#admin_useremail").text("이메일 : "+data.email);
+                $("#admin_useraddr").text("주소 : "+data.address);
+                $("#admin_userbirth").text("생년월일 : "+data.birth);
+                if (data.gender == "true") {
+                    $("#admin_usergen").text("성별 : 여성");
+                } else {
+                    $("#admin_usergen").text("성별 : 남성");
+                }
+
+            }, error: function (status, error) {
+                console.log('error occurred..');
+                console.log(status, error);
+            }
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('#addAdminBtn').click(function(event) {
+
+            let button = $(event.relatedTarget); // Button that triggered the event
+            let id = $(this).data('id'); // Extract info from data-* attributes
+            console.log("userid : " + id);
+
+            $.ajax({
+                url: "/admin/add/" + id,
+                type: 'POST',
+                data: {id: id},
+                success: function (response) {
+                    // Handle the success response from Spring
+                    if(response) {
+                        console.log("Operation successful");
+                        console.log(response);
+                    } else {
+                        console.log("Operation failed");
+                        console.log(response);
+                    }
+                },
+                error: function () {
+                    // Handle the error response from Spring
+                }
+            });
+        });
+
+        $('#removeAdminBtn').click(function(event) {
+
+            // let button = $(event.relatedTarget); // Button that triggered the event
+            let id = $(this).data('adminid'); // Extract info from data-* attributes
+            console.log("adminid : " + id);
+
+            $.ajax({
+                url: "/admin/remove/" + id,
+                type: 'POST',
+                data: {id: id},
+                success: function (response) {
+                    // Handle the success response from Spring
+                    if(response) {
+                        console.log("Operation successful");
+                        console.log(response);
+                    } else {
+                        console.log("Operation failed");
+                        console.log(response);
+                    }
+                },
+                error: function () {
+                    // Handle the error response from Spring
+                }
+            });
+        });
+
+    });
+
+
 
 </script>
