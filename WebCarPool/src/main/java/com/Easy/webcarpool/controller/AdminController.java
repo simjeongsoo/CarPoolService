@@ -7,12 +7,10 @@ import com.Easy.webcarpool.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +41,19 @@ public class AdminController {
     @GetMapping("/getUserInfo/{id}")
     public ProfileResponseDto getUserInfo(@PathVariable Long id) {
         return adminService.findUserInfo(id);
+    }
+
+
+    @PostMapping("/add/{id}")
+    public ResponseEntity<Boolean> addRole(@PathVariable Long id) {
+        Boolean result = adminService.addAdmin(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<Boolean> removeRole(@PathVariable Long id) {
+        Boolean result = adminService.removeAdmin(id);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/usage")
