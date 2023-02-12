@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'chat'? 'active'">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/chat/room}">채팅<span class="sr-only" th:if="${menu} == 'chat'"></span></a>
+                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/chat/room}">고객센터<span class="sr-only" th:if="${menu} == 'chat'"></span></a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'info'? 'active'">
                   <a class="nav-link py-3 px-0 px-lg-3 rounded">내정보<span class="sr-only" th:if="${menu} == 'info'"></span></a>
@@ -60,9 +60,9 @@
                         <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/info/update}">내정보 수정</a></li>
                     </ul>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'service-center'? 'active'">
-                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/service-center}">고객센터<span class="sr-only" th:if="${menu} == 'service-center'"></span></a>
-                </li>
+<!--                <li class="nav-item mx-0 mx-lg-1" th:classappend="${menu} == 'service-center'? 'active'">-->
+<!--                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" th:href="@{/service-center}">고객센터<span class="sr-only" th:if="${menu} == 'service-center'"></span></a>-->
+<!--                </li>-->
 
               </ul>
 
