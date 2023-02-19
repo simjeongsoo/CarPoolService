@@ -10,11 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//user 관련 비즈니스 로직 서비스 클래스
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserService {
+    //--user 관련 비즈니스 로직--//
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
