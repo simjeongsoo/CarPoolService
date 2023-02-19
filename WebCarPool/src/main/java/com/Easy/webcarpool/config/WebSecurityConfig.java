@@ -22,10 +22,6 @@ import javax.sql.DataSource;
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final TokenProvider tokenProvider;
-//    private final CustomUserDetailsService customUserDetailsService;
-//    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Autowired
     private DataSource dataSource; // application.properties 정의된 datasource 사용
