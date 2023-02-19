@@ -2,11 +2,8 @@ package com.Easy.webcarpool.controller;
 
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.model.User;
-import com.Easy.webcarpool.repository.UserRepository;
 import com.Easy.webcarpool.service.admin.AdminService;
-import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +13,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+
+    @Autowired
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping("/home")
     public String admin(){

@@ -4,6 +4,7 @@ import com.Easy.webcarpool.model.Board;
 import com.Easy.webcarpool.repository.BoardRepository;
 import com.Easy.webcarpool.service.BoardService;
 import com.Easy.webcarpool.validator.BoardValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,16 +20,12 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/board")
+@RequiredArgsConstructor
 public class BoardController {
 
-    @Autowired
-    private BoardRepository boardRepository;
-
-    @Autowired
-    private BoardService boardService;
-
-    @Autowired
-    private BoardValidator boardValidator;
+    private final BoardRepository boardRepository;
+    private final BoardService boardService;
+    private final BoardValidator boardValidator;
 
     @GetMapping("/list")
     public String list(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,

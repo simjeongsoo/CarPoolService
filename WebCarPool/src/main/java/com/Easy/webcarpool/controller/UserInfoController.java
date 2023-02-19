@@ -31,9 +31,12 @@ import java.util.Optional;
 public class UserInfoController {
 
     Logger logger = LoggerFactory.getLogger(UserInfoController.class);
+    private final UserInfoService userInfoService;
 
     @Autowired
-    private UserInfoService userInfoService;
+    public UserInfoController(UserInfoService userInfoService) {
+        this.userInfoService = userInfoService;
+    }
 
     @Value("${profileImg.path}")
     private String savePath; // 업로드 파일 저장 위치

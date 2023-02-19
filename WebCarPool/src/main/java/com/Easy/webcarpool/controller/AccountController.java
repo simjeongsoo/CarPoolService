@@ -1,7 +1,6 @@
 package com.Easy.webcarpool.controller;
 
 import com.Easy.webcarpool.dto.SignUpRequestForm;
-import com.Easy.webcarpool.model.User;
 import com.Easy.webcarpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +16,12 @@ import javax.validation.Valid;
 @RequestMapping("/account")
 public class AccountController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public AccountController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 로그인 컨트롤러
