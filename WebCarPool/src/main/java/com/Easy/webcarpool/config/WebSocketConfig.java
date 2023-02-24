@@ -10,18 +10,20 @@ import org.springframework.web.socket.config.annotation.*;
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-
+    private static final String URL = "http://172.30.1.2:8080";
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/sub");
         config.setApplicationDestinationPrefixes("/pub");
+        config.setApplicationDestinationPrefixes("/app");
+        config.setUserDestinationPrefix("/sub");
     }
-
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-stomp").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/mobileServer").setAllowedOrigins(URL).withSockJS();
     }
 
 
