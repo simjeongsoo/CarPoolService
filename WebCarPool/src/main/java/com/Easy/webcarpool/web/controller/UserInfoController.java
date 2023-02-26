@@ -4,7 +4,7 @@ import com.Easy.webcarpool.web.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.web.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.web.dto.ProfileResponseDto;
 import com.Easy.webcarpool.web.dto.ProfileUpdateRequestDto;
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.User;
 import com.Easy.webcarpool.web.service.user.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

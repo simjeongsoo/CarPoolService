@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.repository;
 
-import com.Easy.webcarpool.web.model.Board;
+import com.Easy.webcarpool.web.domain.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

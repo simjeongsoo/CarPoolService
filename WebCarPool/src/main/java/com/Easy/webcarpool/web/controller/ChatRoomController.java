@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.controller;
 
-import com.Easy.webcarpool.web.model.ChatRoom;
+import com.Easy.webcarpool.web.domain.ChatRoom;
 import com.Easy.webcarpool.web.repository.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

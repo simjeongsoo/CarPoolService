@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.controller;
 
-import com.Easy.webcarpool.web.model.ChatMessage;
+import com.Easy.webcarpool.web.domain.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.handler.annotation.MessageMapping;

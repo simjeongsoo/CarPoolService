@@ -1,9 +1,9 @@
 package com.Easy.webcarpool.web.service.user;
 
 import com.Easy.webcarpool.web.dto.SignUpRequestForm;
-import com.Easy.webcarpool.web.model.Role;
-import com.Easy.webcarpool.web.model.User;
-import com.Easy.webcarpool.web.model.UserCar;
+import com.Easy.webcarpool.web.domain.Role;
+import com.Easy.webcarpool.web.domain.User;
+import com.Easy.webcarpool.web.domain.UserCar;
 import com.Easy.webcarpool.web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.dto;
 
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.User;
 import lombok.*;
 
 @Getter @Setter

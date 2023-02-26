@@ -1,7 +1,7 @@
 package com.Easy.webcarpool.web.controller;
 
-import com.Easy.webcarpool.web.model.Board;
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.Board;
+import com.Easy.webcarpool.web.domain.User;
 import com.Easy.webcarpool.web.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

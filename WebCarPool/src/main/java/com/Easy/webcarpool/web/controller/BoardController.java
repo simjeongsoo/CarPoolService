@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.controller;
 
-import com.Easy.webcarpool.web.model.Board;
+import com.Easy.webcarpool.web.domain.Board;
 import com.Easy.webcarpool.web.repository.BoardRepository;
 import com.Easy.webcarpool.web.service.user.BoardService;
 import com.Easy.webcarpool.web.validator.BoardValidator;

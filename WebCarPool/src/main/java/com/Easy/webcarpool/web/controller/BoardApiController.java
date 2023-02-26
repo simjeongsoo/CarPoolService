@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.controller;
 
-import com.Easy.webcarpool.web.model.Board;
+import com.Easy.webcarpool.web.domain.Board;
 import com.Easy.webcarpool.web.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

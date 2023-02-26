@@ -1,8 +1,8 @@
 package com.Easy.webcarpool.web.service.admin;
 
 import com.Easy.webcarpool.web.dto.ProfileResponseDto;
-import com.Easy.webcarpool.web.model.Role;
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.Role;
+import com.Easy.webcarpool.web.domain.User;
 import com.Easy.webcarpool.web.repository.RoleRepository;
 import com.Easy.webcarpool.web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

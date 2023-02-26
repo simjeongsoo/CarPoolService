@@ -1,4 +1,4 @@
-package com.Easy.webcarpool.web.model;
+package com.Easy.webcarpool.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

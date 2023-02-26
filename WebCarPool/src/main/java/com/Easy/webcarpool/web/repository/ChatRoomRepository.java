@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.repository;
 
-import com.Easy.webcarpool.web.model.ChatRoom;
+import com.Easy.webcarpool.web.domain.ChatRoom;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;

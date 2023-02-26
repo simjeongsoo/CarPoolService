@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.dto;
 
-import com.Easy.webcarpool.web.model.UserCar;
+import com.Easy.webcarpool.web.domain.UserCar;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

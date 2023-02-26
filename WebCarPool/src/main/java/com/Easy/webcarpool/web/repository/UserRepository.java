@@ -1,6 +1,6 @@
 package com.Easy.webcarpool.web.repository;
 
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

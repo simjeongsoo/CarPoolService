@@ -1,7 +1,7 @@
 package com.Easy.webcarpool.web.controller;
 
 import com.Easy.webcarpool.web.dto.ProfileResponseDto;
-import com.Easy.webcarpool.web.model.User;
+import com.Easy.webcarpool.web.domain.User;
 import com.Easy.webcarpool.web.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
