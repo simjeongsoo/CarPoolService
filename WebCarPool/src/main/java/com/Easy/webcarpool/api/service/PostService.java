@@ -33,22 +33,27 @@ public class PostService {
     private final UserRepository userRepository;
     private final ReservedPostRepository reservedPostRepository;
 
-
-    //태워주세요 게시글 등록
+    /*
+    * 태워주세요 게시글 등록 ,저장
+    * */
     @Transactional
     public String savePassengerPost(PostPassengerDto dto){
         postPassengerRepository.save(dto.toEntity());
         return "success";
-    }   //태워주세요 게식글 저장
+    }
 
-    //타세요 게시글 등록
+    /*
+     * 타세요 게시글 등록, 저장
+     * */
     @Transactional
     public String saveDriverPost(PostDriverDto dto){
         postDriverRepository.save(dto.toEntity());
         return "success";
-    }   // 타세요 게시글 저장
+    }
 
-
+    /*
+     * 태워주세요 게시글 조회
+     * */
     @Transactional
     public List<PostDto> getPassengerPost(int currentPage){
         Pageable limit = PageRequest.of(currentPage,10);
@@ -57,8 +62,11 @@ public class PostService {
                 .map(PostDto::new)
                 .collect(Collectors.toList());
 
-    }   // 태워주세요 게시글 조회
+    }
 
+    /*
+     * 타세요 게시글 조회
+     * */
     @Transactional
     public List<PostDto> getDriverPost(int currentPage){
         Pageable limit = PageRequest.of(currentPage,10);
@@ -74,12 +82,14 @@ public class PostService {
         System.out.println(temp.size());
 
         return temp;
-    }   //타세요 게시글 조회
+    }
 
-
-    //check --> limitable 적용여부 판단
+    /*
+     * 엑세스한 유저가 작성한 게시글 조회
+     * */
     @Transactional
     public List<PostDto> getUserPost(AndroidLocalUserDto androidLocalUserDto){
+        //--check --> limitable 적용여부 판단--//
         List<PostDto> postPassenger = postPassengerRepository.findPassengerPostByEmail(androidLocalUserDto.getEmail()).stream()
                 .map(PostDto::new)
                 .collect(Collectors.toList());
@@ -88,15 +98,13 @@ public class PostService {
                 .map(PostDto::new)
                 .collect(Collectors.toList());
 
-        List<PostDto> posts = new ArrayList<PostDto>();
+        List<PostDto> posts = new ArrayList<>();
         posts.addAll(postDriver);
         posts.addAll(postPassenger);
 
         return posts;
-    }   //엑세스한 유저가 작성한 게시글 조회
+    }
 
-
-    //진행중 0 -> reservedPostDto 개수 포함히여 리턴하도록 변경
     @Transactional
     public UserPostDto getUserPostData(AndroidLocalUserDto androidLocalUserDto) {
 
@@ -108,8 +116,12 @@ public class PostService {
                 .driver(Integer.toString(postDrivers.size()))
                 .ongoing("0")
                 .build();
-    }//getUserPostDat()
+        // 진행중 0 -> reservedPostDto 개수 포함히여 리턴하도록 변경
+    }
 
+    /*
+     * 요청 게시글 로직
+     * */
     @Transactional
     public PostDto findPostById(RoomDto roomDto){
         if(roomDto.getPostType().equals("passenger")){  //요청 게시글이 태워주세요
@@ -126,9 +138,12 @@ public class PostService {
             return new PostDto(postDriver);
         }
 
-    }//findPostById()
+    }
 
 
+    /*
+     * 유저가 검색한 지역명 기반 게시글 조회
+     * */
     public List<PostDto> getPostByDistrict(PostDistrictDto postDistrictDto) {
 
         if(postDistrictDto.getPostType().equals("driver")){ // 타세요
@@ -142,8 +157,7 @@ public class PostService {
         }else{  //user
             return null;
         }
-    }//getPostByDistrict 유저가 검색한 지역명 기반 게시글 조회
-
+    }
 
     @Transactional
     public void progressToComplete(PostReviewDto dto){
@@ -157,9 +171,7 @@ public class PostService {
                 reservedPostRepository.delete(reservedPostEntity.get());
             }   //PostReviewDto의 postId와 PostType에 해당하는 예약건이 있을경우 삭제 trigger에 의해 complete테이블로 이동
         }
-
         postReviewRepository.save(dto.toEntity());
-    } //progressToComplete()
-
+    }
 
 }

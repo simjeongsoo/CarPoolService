@@ -17,6 +17,7 @@ public class LocationService {
     private final SimpMessagingTemplate template;
 
     private Map<String, RoomDto> roomDtoMap;
+
     @PostConstruct  //의존성 주입이 이루어진후 초기화 수
     private void init(){
         roomDtoMap = new LinkedHashMap<>();
@@ -25,5 +26,5 @@ public class LocationService {
     public void sendLocation(LocationDto locationDto){
         System.out.println(locationDto.getLat().toString());
         template.convertAndSend("/sub/location/room"+locationDto.getRoomId(), locationDto);
-    }//sendMessage
+    }
 }

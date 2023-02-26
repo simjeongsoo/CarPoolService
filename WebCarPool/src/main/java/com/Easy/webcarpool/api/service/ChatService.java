@@ -33,9 +33,8 @@ public class ChatService {
         roomDtoMap = new LinkedHashMap<>();
     }
 
-
-    //check : create수행시 방이 이미 존재할 경우 기존방을 찾아서 return
     public String createRoomDto(RoomDto roomDto){
+        //--check : create수행시 방이 이미 존재할 경우 기존방을 찾아서 return--//
 
         Optional<ChatRoomEntity> chatRoomEntity = chatRoomRepository.findChatRoomByDto(roomDto.getPostType(), roomDto.getPostId(), roomDto.getDriver(), roomDto.getPassenger());
 
@@ -67,7 +66,7 @@ public class ChatService {
         }
 
         //firebase code
-    }//sendMessage
+    }
 
     public List<ChatMessageDto> findMessageByRoomId(String roomId){
 
@@ -82,7 +81,9 @@ public class ChatService {
 
     }
 
-    //성사된 예약에 대한 정보 저장
+    /*
+    * 성사된 예약에 대한 정보 저장
+    * */
     public void registerReservedPost(ReservedPostDto dto){
         reservedPostRepository.save(dto.toEntity());
     }
@@ -93,6 +94,6 @@ public class ChatService {
             chatRoomRepository.delete(chatRoomEntity.get());
             chatMessageRepository.deleteMessageByRoomID(roomDto.getRoomId());
         }
-
-    }   //leaveChatRoom() -> 채팅방 뿐만아니라 채팅방에 해당하는 메시지 또한 삭제하도록 변경!
+        //--leaveChatRoom() -> 채팅방 뿐만아니라 채팅방에 해당하는 메시지 또한 삭제하도록 변경--//
+    }
 }

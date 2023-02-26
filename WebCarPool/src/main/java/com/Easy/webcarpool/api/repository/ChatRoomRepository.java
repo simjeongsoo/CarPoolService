@@ -12,16 +12,12 @@ import java.util.Optional;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> {
 
-
     @Query("SELECT c FROM ChatRoomEntity c WHERE c.roomid = :roomId")
     public Optional<ChatRoomEntity> findChatRoomByRoomId(@Param("roomId") String roomId);
 
-    //select * from testTBL where name1='kim' or name2='kim';
     @Query("SELECT c FROM ChatRoomEntity c WHERE c.passenger = :email OR c.driver = :email")
     public List<ChatRoomEntity> findChatRoomByEmail(@Param("email") String email);
 
-
-    //select * from chat_room_entity where post_type = 'driver' AND post_id=2 AND passenger='lee' AND driver='kim';
 
     @Query("SELECT c FROM ChatRoomEntity c WHERE c.postType = :postType AND c.postId = :postId AND c.driver = :driver AND c.passenger = :passenger")
     Optional<ChatRoomEntity> findChatRoomByDto(@Param("postType") String postType,
