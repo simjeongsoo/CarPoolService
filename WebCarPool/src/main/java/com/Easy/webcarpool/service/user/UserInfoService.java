@@ -1,4 +1,4 @@
-package com.Easy.webcarpool.service;
+package com.Easy.webcarpool.service.user;
 
 import com.Easy.webcarpool.dto.ProfileCarDetailsRequestDto;
 import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
