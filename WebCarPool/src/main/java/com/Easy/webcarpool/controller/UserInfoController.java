@@ -5,7 +5,7 @@ import com.Easy.webcarpool.dto.ProfileCarDetailsResponseDto;
 import com.Easy.webcarpool.dto.ProfileResponseDto;
 import com.Easy.webcarpool.dto.ProfileUpdateRequestDto;
 import com.Easy.webcarpool.model.User;
-import com.Easy.webcarpool.service.UserInfoService;
+import com.Easy.webcarpool.service.user.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

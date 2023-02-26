@@ -2,10 +2,9 @@ package com.Easy.webcarpool.controller;
 
 import com.Easy.webcarpool.model.Board;
 import com.Easy.webcarpool.repository.BoardRepository;
-import com.Easy.webcarpool.service.BoardService;
+import com.Easy.webcarpool.service.user.BoardService;
 import com.Easy.webcarpool.validator.BoardValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
