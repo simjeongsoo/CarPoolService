@@ -30,6 +30,6 @@ public class StompChatController {
         chatService.registerReservedPost(dto);
 
         return ResponseEntity.ok("success");
-    }// registerReservedPost
+    }
 
 }

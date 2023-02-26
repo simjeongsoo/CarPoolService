@@ -18,18 +18,24 @@ public class ReportController {
 
     private final ReportService reportService;
 
+    /*
+    * 사용자 신고글 저장
+    * */
     @PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/accuse")
     public ResponseEntity<String> accuseUser(@RequestBody AccuseDto dto){
         String message = reportService.accuseUser(dto);
         return ResponseEntity.ok(message);
-    }   //사용자 신고글 저장
+    }
 
+    /*
+    * 관리자 문의글 저장
+    * */
     @PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/reportAdmin")
     public ResponseEntity<String> reportAdmin(@RequestBody ReportDto dto){
         String message = reportService.reportAdmin(dto);
         return ResponseEntity.ok(message);
-    }   //관리자 문의글 저장
+    }
 
 }
