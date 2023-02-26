@@ -57,11 +57,9 @@ public class PostService {
     @Transactional
     public List<PostDto> getPassengerPost(int currentPage){
         Pageable limit = PageRequest.of(currentPage,10);
-
         return postPassengerRepository.findAll(limit).stream()
                 .map(PostDto::new)
                 .collect(Collectors.toList());
-
     }
 
     /*
@@ -70,18 +68,9 @@ public class PostService {
     @Transactional
     public List<PostDto> getDriverPost(int currentPage){
         Pageable limit = PageRequest.of(currentPage,10);
-
-        List<PostDto> temp = postDriverRepository.findAll(limit).stream()
+        return postDriverRepository.findAll(limit).stream()
                 .map(PostDto::new)
                 .collect(Collectors.toList());
-
-        for (int i = 0; i < temp.size(); i++) {
-            System.out.println(temp.get(i).getPostId().toString());
-        }
-
-        System.out.println(temp.size());
-
-        return temp;
     }
 
     /*

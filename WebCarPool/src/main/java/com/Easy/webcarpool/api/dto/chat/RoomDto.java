@@ -50,7 +50,6 @@ public class RoomDto {
 
     public void setCurrentTime(){
         LocalTime now = LocalTime.now();
-        System.out.println(now);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH시 mm분");
         String formatedNow = now.format(formatter);
         this.lastChatTime = formatedNow;

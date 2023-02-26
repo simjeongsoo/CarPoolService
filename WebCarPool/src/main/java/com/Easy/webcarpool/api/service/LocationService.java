@@ -24,7 +24,6 @@ public class LocationService {
     }
 
     public void sendLocation(LocationDto locationDto){
-        System.out.println(locationDto.getLat().toString());
         template.convertAndSend("/sub/location/room"+locationDto.getRoomId(), locationDto);
     }
 }

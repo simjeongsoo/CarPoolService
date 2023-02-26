@@ -62,7 +62,7 @@ public class ChatService {
         try{
             fcmService.sendMessageTo(newMessage.getFcmToken(), newMessage.getWriter(), newMessage.getMessage());
         }catch(Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
         //firebase code
@@ -75,7 +75,7 @@ public class ChatService {
                     .map(ChatMessageDto::new)
                     .collect(Collectors.toList());
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             return null;
         }
 

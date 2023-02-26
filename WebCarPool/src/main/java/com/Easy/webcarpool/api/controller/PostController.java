@@ -46,7 +46,6 @@ public class PostController {
     @PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/passenger/getPost")
     public List<PostDto> getPassengerPost(@RequestBody int currentPage){
-        System.out.println("currentPage : " + currentPage);
         return postService.getPassengerPost(currentPage);
     }
 
