@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -62,7 +64,7 @@ public class UserService {
     }
 
     //--단일 회원 조회--//
-//    public User findOne(User user) {
-//        return userRepository.findOne(user.getId());
-//    }
+    public Optional<User> findOne(Long userId) {
+        return userRepository.findById(userId);
+    }
 }
