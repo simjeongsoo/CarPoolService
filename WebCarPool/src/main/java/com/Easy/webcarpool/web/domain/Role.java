@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-//@Data
 @Getter @Setter
 @NoArgsConstructor
 public class Role {
@@ -21,4 +20,9 @@ public class Role {
     @JsonIgnore // role을 조회할 때 json에 표시 안함
     private List<User> users;
 
+    @Builder
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
